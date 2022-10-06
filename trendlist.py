@@ -7,7 +7,6 @@ import random
 from dataclasses import dataclass
 from typing import Iterable, List, Optional, Union
 
-
 # new static types
 Number = Union[float, int]
 Initializer = Union[Number, "Trend"]
@@ -15,6 +14,7 @@ Initializer = Union[Number, "Trend"]
 
 def pows(n: int, base: int = 2, start: int = 0) -> Iterable:
     """List sequences of powers of the base.
+
     base permits specifying the base
     start permits returning the numbers in a different (rotated) order,
         e.g., start=3 will give the numbers in the order
@@ -28,6 +28,7 @@ def pows(n: int, base: int = 2, start: int = 0) -> Iterable:
 
 def rands(n: int, seed: float = None, start: int = 0) -> Iterable:
     """Generate sequences of random floats.
+
     Ignoring flake8 warning S311 about pseudo-random-number generators.
     I want a pseudo-random number generator!
 
@@ -36,7 +37,6 @@ def rands(n: int, seed: float = None, start: int = 0) -> Iterable:
         e.g., start=3 will give the numbers in the order
         "3rd, 4th, ... nth, 0th, 1st, 2nd"
     """
-
     random.seed(seed)
     start = start % n  # in case start >= n
     for _ in range(start):
@@ -82,13 +82,14 @@ class Trend:
             raise ValueError("length must be positive")
 
     def merge(self, other, reverse=False) -> Optional["Trend"]:
+        """Merge a trend into the current trend."""
         if self.mean == other.mean:
             raise ValueError("merging trend mean must differ!")
         can_merge = operator.gt if reverse else operator.lt
         if can_merge(self, other):
             length = self.length + other.length
-            sum = self.length * self.mean + other.length * other.mean
-            mean = sum / length
+            total = self.length * self.mean + other.length * other.mean
+            mean = total / length
             return Trend(mean=mean, length=length)
         return None
 
@@ -102,6 +103,7 @@ class TrendList(list):
     def __init__(
         self, s: Optional[List[Initializer]] = None, reverse: bool = False
     ) -> None:  # noqa: E501
+        """Initialize Trend object."""
         if s is None:
             s = []
         for elem in s:
