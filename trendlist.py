@@ -14,17 +14,16 @@ Initializer = Union[Number, "Trend"]
 
 
 def pows(n: int, base: int = 2, start: int = 0) -> Iterable:
-    """Generate sequences of powers of the base.
+    """List sequences of powers of the base.
     base permits specifying the base
-    start permits yielding the numbers in a different (rotated) order,
+    start permits returning the numbers in a different (rotated) order,
         e.g., start=3 will give the numbers in the order
         "3rd, 4th, ... nth, 0th, 1st, 2nd"
     """
     start = start % n  # in case start >= n
-    for i in range(start, n):
-        yield base**i
-    for i in range(start):
-        yield base**i
+    left = [base**i for i in range(start, n)]
+    right = [base**i for i in range(start)]
+    return left + right
 
 
 def rands(n: int, seed: float = None, start: int = 0) -> Iterable:
