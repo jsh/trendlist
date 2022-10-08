@@ -1,6 +1,4 @@
-"""Unit tests for trend."""
-# Prevent complaints about fixtures.
-#   pylint: disable=redefined-outer-name
+"""Unit tests for class Trend."""
 
 from math import e  # Euler's constant
 from operator import ge, gt, le, lt
