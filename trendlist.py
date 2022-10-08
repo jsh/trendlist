@@ -179,7 +179,7 @@ class TrendList(list):
         while len(new) > 1:
             orig_start += new[
                 0
-            ].len  # positon in self that will become new[0] following rotation
+            ].length  # position in self that will become new[0] following rotation
             new = new.rotate()
             rotations += 1
         return self.Rotations(start=orig_start, num_rots=rotations)
