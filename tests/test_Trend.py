@@ -35,12 +35,12 @@ def test_init(test_trends: List[Trend]) -> None:
 
 
 def test_trend_default() -> None:
-    """Test default fields."""
-    trend = Trend(0)
+    """Default fields have expected values."""
+    trend = Trend(mean=0)
     assert trend.length == 1
     with pytest.raises(ValueError) as excerr:
-        trend = Trend()
-    assert str(excerr.value) == "mean must be non-negative"
+        trend = Trend(length=1)
+    assert str(excerr.value) == "mean must be initialized"
 
 
 def test_repr(test_trends: List[Trend]) -> None:
@@ -73,6 +73,13 @@ def test_lt(test_trends: List[Trend]) -> None:
     assert test_trends[2] >= test_trends[1]  # >
 
 
+def test_bad_merge(test_trends: List[Trend]) -> None:
+    """Test merge."""
+    with pytest.raises(ValueError) as excerr:
+        test_trends[0].merge(test_trends[1])
+    assert str(excerr.value) == "merging trend mean must differ!"
+
+
 def test_merge(test_trends: List[Trend]) -> None:
     """Test merge."""
     merged_trend = test_trends[1].merge(test_trends[2])
@@ -94,8 +101,9 @@ def test_valid_compare(operator) -> None:
 @pytest.mark.parametrize(
     "exception_type, mean, length, message",
     [
-        (TypeError, None, None, "mean must be number"),
-        (TypeError, None, 1, "mean must be number"),
+        (ValueError, None, None, "mean must be initialized"),
+        (ValueError, None, 1, "mean must be initialized"),
+        (TypeError, e, e, "length must be integer"),
         (TypeError, [1, 2, 3], None, "mean must be number"),
         (TypeError, 1, e, "length must be integer"),
         (TypeError, 1, "a", "length must be integer"),
@@ -103,8 +111,11 @@ def test_valid_compare(operator) -> None:
         (ValueError, 1, -1, "length must be positive"),
     ],
 )
-def test_trend_error(
-    exception_type, length: int, mean: float, message: str   # TODO: static-type exception_type
+def test_trend_exception(
+    exception_type,
+    length: int,
+    mean: float,
+    message: str,  # TODO: static-type exception_type
 ) -> None:
     """Test error handling."""
     with pytest.raises(exception_type) as excerr:
