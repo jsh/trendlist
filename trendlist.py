@@ -5,7 +5,7 @@ import collections
 import operator
 import random
 from dataclasses import dataclass
-from typing import Iterable, List, Optional, Union
+from typing import Any, Iterable, Optional, Union
 
 # new static types
 Number = Union[float, int]
@@ -19,6 +19,8 @@ def pows(n: int, base: int = 2, start: int = 0) -> Iterable:
     start permits returning the numbers in a different (rotated) order,
         e.g., start=3 will give the numbers in the order
         "3rd, 4th, ... nth, 0th, 1st, 2nd"
+
+    TODO: I don't think it's worth adding a "reverse" argument. Amiright?
     """
     start = start % n  # in case start >= n
     left = [base**i for i in range(start, n)]
@@ -63,7 +65,7 @@ class Trend:
 
     """
 
-    mean: Number
+    mean: Number = -1  # throw ValueError if not initialized
     length: int = 1
 
     def __post_init__(self) -> None:
@@ -80,6 +82,17 @@ class Trend:
             raise TypeError("length must be integer")
         if self.length <= 0:
             raise ValueError("length must be positive")
+        if self.mean < 0:
+            raise ValueError("mean must be non-negative")
+
+    def __str__(self) -> str:
+        """Convert to a nice string to display.
+
+        Returns:
+            The string "(mean, length)"
+
+        """
+        return f"({self.mean:.2f},{self.length})"
 
     def merge(self, other, reverse=False) -> Optional["Trend"]:
         """Merge a trend into the current trend."""
@@ -101,16 +114,26 @@ class TrendList(list):
     """
 
     def __init__(
-        self, s: Optional[List[Initializer]] = None, reverse: bool = False
+        self, s: Iterable[Any] = None, reverse: bool = False
     ) -> None:  # noqa: E501
         """Initialize Trend object."""
         if s is None:
             s = []
+        self._reverse = reverse
         for elem in s:
             if not isinstance(elem, Trend):  # accept either Trends or numbers
                 elem = Trend(elem)
             self.append(elem)
-        self._reverse = reverse
+
+    def __str__(self) -> str:
+        """Convert to a nice string to display.
+
+        Returns:
+            The string "(mean, length)"
+        """
+
+        to_string = [str(elem) for elem in self]
+        return "[" + ",".join(to_string) + "]"
 
     def append(self, other: "Trend") -> None:
         """Append a new trend, in-place.
