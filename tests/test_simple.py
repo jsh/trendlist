@@ -1,4 +1,4 @@
-from simple.trendlist import is_mono_inc, is_mono_inc2, is_trend, pfx_trend, trend_list
+from trendlist.simple import is_mono_inc, is_mono_inc2, is_trend, pfx_trend, trend_list
 from trendlist import pows, rands
 
 from typing import List
