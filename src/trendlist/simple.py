@@ -2,22 +2,24 @@ import statistics
 from copy import copy
 from typing import List, Union
 
+import blessed
+
 Number = Union[int, float]
 
 
 def is_mono_inc(s: List[Number]) -> bool:
     """True iff sequence is monotonically increasing."""
-    return all([s[i+1] > s[i] for i in range(len(s) - 1)])
+    return all([s[i + 1] > s[i] for i in range(len(s) - 1)])
 
 
 def is_mono_inc2(s: List[Number]) -> bool:
     """True iff sequence is monotonically increasing.
-    
+
     There's more than one way to skin a cat.
     """
     n = len(s)
     for i in range(1, n):
-        if max(s[:i]) > min(s[i:]):
+        if max(s[:i]) >= min(s[i:]):
             return False
     return True
 
@@ -27,7 +29,7 @@ def is_trend(s: List[Number]) -> bool:
     mean_s = statistics.mean(s)
     n = len(s)
     for i in range(1, n):
-        if statistics.mean(s[:i]) > mean_s:
+        if statistics.mean(s[:i]) >= mean_s:
             # prefix mean greater than the whole,
             # so greater than the suffix, too.
             return False
@@ -41,6 +43,7 @@ def pfx_trend(s: List[Number]) -> List[Number]:
         if is_trend(t):  # work backwards until you find a trend
             return t
         t.pop()
+    return t
 
 
 def trend_list(s: List[Number]) -> List[List[Number]]:
@@ -49,9 +52,10 @@ def trend_list(s: List[Number]) -> List[List[Number]]:
     trend_list = []
     while s:
         p = pfx_trend(s)  # find the longest, leftmost trend
+        if not p:
+            return trend_list
         trend_list.append(p)  # tack it onto the end of the trendlist
-        p_len = len(p)
-        s = s[p_len:]  # decompose what remains
+        s = s[len(p) :]  # decompose what remains  # noqa
     return trend_list
 
 
@@ -66,5 +70,5 @@ def print_trend_list(trendlist: List[List[Number]]) -> None:
 
 
 def print_trends(s) -> None:
-    tl = trendlist(s)
-    print_trendlist(tl)
+    tl = trend_list(s)
+    print_trend_list(tl)

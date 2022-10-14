@@ -1,5 +1,5 @@
-.*
-*.swp
-__pycache__
-*.ignore
-bin
+*.ign       # ignore
+*.swp       # vi swap files
+.*          # hidden files
+__pycache__ # compiled python
+bin         # utils
