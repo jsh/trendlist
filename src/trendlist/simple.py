@@ -41,7 +41,6 @@ def pfx_trend(s: List[Number]) -> List[Number]:
         if is_trend(t):  # work backwards until you find a trend
             return t
         t.pop()
-    return []
 
 
 def trend_list(s: List[Number]) -> List[List[Number]]:
