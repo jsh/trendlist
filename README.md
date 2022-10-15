@@ -57,7 +57,7 @@ By convention, just as single number is a one-element, monotonically increasing 
 Not everything is a trend, but trends are far more common than monotonically increasing sequences,
 and interesting in their own right.
 
-### Averages
+### We Use the Arithmetic Mean for Averages
 
 The easiest average to work with is the arithmetic mean,
 but for defining trends, any average will work that satisfies one condition:
@@ -76,7 +76,7 @@ but
 Right now, the code hard-wires "average" to "arithmetic mean."
 Enhancing it, so the average to use could be specified in a config file, would be a useful upgrade.
 
-### Random numbers
+### We Use Python Floats for Reals
 
 If you're a mathematician, you can say things like, *"The probability that two random reals, independently chosen on a finite interval, are equal has Lebesgue measure zero."*
 with a straight face.
@@ -96,7 +96,7 @@ but I would welcome a proof.
 I believe the same about subsets of powers of primes -- that is, for any set of prime powers, `p**k`, differnt subsets have different means.
 Again, this is an article of faith for which I don't yet have a formal proof.
 
-### Representation
+### We Build Classes to Represent Trends and TrendLists
 
 The submodule *trendlist.simple* represents trends as lists, and lists of trends as lists of lists.
 This is a simple way to play with trends, but it's a pig.
@@ -116,19 +116,41 @@ it's enough to keep track of the trend mean and trend length.
 The trendlist package defines the class `Trend`, which only stores these two values,
 and another class `Trendlist`, a subclass of `List`, which represents lists of `Trend`s.
 
-### Properties
+### Trends Have Cool Properties
 
-Trends have some cool properties, worth mentioning:
+Any sequence breaks cleanly and uniquely into maximum-length, monotonically increasing subsequences. For example,
 
-- Every sequence of reals that's not a trend can be decomposed, uniquely, into maximum-length trends by merging adjacent trends whenever possible.
-- After decomposing a sequence, the means of the trends are monotonic:
-If you decompose the sequence, left-to-right, into increasing trends, their averages are monotonically decreasing. Decomposition into falling trends produces monotonically increasing averages.
-- Every sequence has exactly one circular permutation that's a single, increasing trend.
+* [3, 1, 4, 1, 5, 9]  -> [[3], [1 4], [1 5 9]]
 
-These perhaps-not-intuitively-obvious properties, and many other cool things,
+* [2, 7, 1, 8, 2, 8, 1, 8, 2, 8, 4, 5, 9, 0, 4, 5] -> [[2, 7], [1, 8], [2, 8], [1, 8], [2, 8], [4, 5, 9], [0, 4, 5]]
+
+(We're letting single numbers be monotonic sequences, where needed, and we're excluding sequences with adjacent, repeating numbers, like [1, 1, 2, 3, 5, 8, 13])
+
+The monotonic subsequences are called "ascents." They were investigated by Euler, who probably called them something else because he was German and wrote in Latin.
+
+Notice a couple of things:
+
+* The last number of an ascent is always greater than the first number of the next,
+
+* Out of the N! permutations of a set of N numbers, only one -- the list after sorting -- is monotonically increasing.
+
+Similarly, every sequence breaks cleanly and uniquely, into maximum-length trends.
+
+* [3, 1, 4, 1, 5, 9]  -> [[3, 1, 4, 1, 5, 9]]
+
+* [2, 7, 1, 8, 2, 8, 1, 8, 2, 8, 4, 5, 9, 0, 4, 5] -> [[2, 7, 1, 8, 2, 8, 1, 8, 2, 8, 4, 5, 9], [0, 4, 5]]
+
+Here, we'll note that
+
+- The means of the trends decrease monotonically. Every trend's mean is greater than the one to its right.
+
+- Out of the N! permutations of a set of N numbers, (N-1)! are single trends.
+Every sequence has exactly one circular permutation that's a single, increasing trend.
+
+These perhaps-not-intuitively-obvious properties, along with many other cool things,
 are shown in Ehrenfeucht, *et al. (vide infra)*.
 
-### Development Environment
+### A Sketch of the Development Environment
 
 I use `poetry` for environment and dependency management.
 The file `pyproject.toml` contains specifications.
@@ -142,10 +164,10 @@ except `safety`, which is documented at <https://pyup.io/safety>
 I welcome suggestions on what other checks I should add.
 
 
-### Documentation
+### There's Plenty of Documentation
 
 In addition to this README, the *trendlist* package is documented at `readthedocs.io`,
-which also links to a suite of tutorial notebooks, also available through `binder`.
+which also links to a repository full of tutorial notebooks, which are also available through `binder`.
 
 
 ## Reference
