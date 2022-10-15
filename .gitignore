@@ -1,5 +1,10 @@
-*.ign       # ignore
-*.swp       # vi swap files
-.*          # hidden files
-__pycache__ # compiled python
-bin         # utils
+# deliberately ignored
+*.ign
+# vi swap files
+*.swp
+# hidden files
+.*
+# compiled python
+__pycache__
+# utilities for development
+bin
