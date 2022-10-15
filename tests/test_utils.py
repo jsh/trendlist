@@ -1,3 +1,5 @@
+"""Unit-test trendlist.simple."""
+
 import random
 from collections import deque
 from typing import Union
@@ -6,21 +8,25 @@ from trendlist import Initializer, Number, Rotations, Trend, pows, rands
 
 
 def test_typing() -> None:
+    """Defined type."""
     assert Number == Union[float, int]
     assert Initializer == Union[Number, "Trend"]
 
 
 def test_pows_default_base() -> None:
+    """Default base is 2."""
     n = 5
     assert pows(n) == [2**i for i in range(n)]
 
 
 def test_pows_base() -> None:
+    """Base can be reset."""
     n = 5
     assert pows(n, base=5) == [5**i for i in range(n)]
 
 
 def test_pows_start() -> None:
+    """List rotation successful."""
     n = 10
     for i in range(n + 2):
         dq = deque(pows(n))
@@ -29,6 +35,7 @@ def test_pows_start() -> None:
 
 
 def test_rands() -> None:
+    """Random sequence generated correctly."""
     n = 1000
     random_list = list(rands(n))
     assert len(random_list) == n  # right length
@@ -38,6 +45,7 @@ def test_rands() -> None:
 
 
 def test_rand_seed() -> None:
+    """Random lists with the same seed are identical."""
     n = 10
     seed = random.random()
     list_a = list(rands(n, seed=seed))
@@ -46,6 +54,7 @@ def test_rand_seed() -> None:
 
 
 def test_rand_start() -> None:
+    """Random list rotated."""
     n = 10
     seed = random.random()
     rands_n = list(rands(n, seed=seed))
@@ -56,6 +65,7 @@ def test_rand_start() -> None:
 
 
 def test_Rotations() -> None:
+    """Rotations initialized."""
     rots = Rotations()
     assert rots.start == 0
     assert rots.num_rots == 0

@@ -57,6 +57,7 @@ def test_init_with_reverse() -> None:
 
 
 def test_str() -> None:
+    """Function __str__() returns friendly representation."""
     trends = TrendList([pi, e])
     assert f"{trends}" == "[(3.14,1),(2.72,1)]"
 
@@ -121,7 +122,7 @@ def test_one_rot() -> None:
 
 
 def test_mean_length_invariant() -> None:
-    """TrendList mean and length are invariant after rotation."""
+    """Mean and length of TrendList are invariant after rotation."""
     seq_length = 5
     seq = list(rands(seq_length))
     seq_mean = statistics.mean(seq)
@@ -165,7 +166,7 @@ def test_one_rot_single() -> None:
 
 
 def test_two_rot_single() -> None:
-    "Sequence that requires two rotations reports them." ""
+    """Sequence that requires two rotations reports them."""
     seq = []
     for trend_len in range(6, 1, -1):
         seq += pows(trend_len)  # decreasing means each time, no merge

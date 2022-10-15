@@ -1,3 +1,11 @@
+"""Trends as lists, trendlists as lists of lists.
+
+This module lets you explore trends in sequences,
+preserving all the information about the original sequences.
+It works well enough for short sequences,
+but is a real dog for sequences of lengths in the thousands.
+"""
+
 import statistics
 from copy import copy
 from typing import List, Union
@@ -8,12 +16,12 @@ Number = Union[int, float]
 
 
 def is_mono_inc(s: List[Number]) -> bool:
-    """True iff sequence is monotonically increasing."""
+    """Sequence is monotonically increasing."""
     return all([s[i + 1] > s[i] for i in range(len(s) - 1)])
 
 
 def is_mono_inc2(s: List[Number]) -> bool:
-    """True iff sequence is monotonically increasing.
+    """Sequence is monotonically increasing.
 
     There's more than one way to skin a cat.
     """
@@ -25,7 +33,7 @@ def is_mono_inc2(s: List[Number]) -> bool:
 
 
 def is_trend(s: List[Number]) -> bool:
-    """The list, s, is a trend."""
+    """List, s, is a trend."""
     mean_s = statistics.mean(s)
     n = len(s)
     for i in range(1, n):
@@ -37,7 +45,7 @@ def is_trend(s: List[Number]) -> bool:
 
 
 def pfx_trend(s: List[Number]) -> List[Number]:
-    # Return the first trend in the sequence.
+    """Return the first trend in the sequence."""
     t = copy(s)
     while t:  # start with the whole sequence
         if is_trend(t):  # work backwards until you find a trend
@@ -47,8 +55,7 @@ def pfx_trend(s: List[Number]) -> List[Number]:
 
 
 def trend_list(s: List[Number]) -> List[List[Number]]:
-    # Decompose a sequence into its trends,
-    # return the list of trends.
+    """Decompose a sequence into its trends, return the list of trends."""
     trend_list = []
     while s:
         p = pfx_trend(s)  # find the longest, leftmost trend
@@ -60,6 +67,7 @@ def trend_list(s: List[Number]) -> List[List[Number]]:
 
 
 def print_trend_list(trendlist: List[List[Number]]) -> None:
+    """Nice, colored printout of a trend_list."""
     term = blessed.Terminal()
     for i, trend in enumerate(trendlist, start=1):
         trend_l = [f"{elem:0.2f}" for elem in trend]
@@ -70,5 +78,6 @@ def print_trend_list(trendlist: List[List[Number]]) -> None:
 
 
 def print_trends(s) -> None:
+    """Decompose and pretty-print a sequence."""
     tl = trend_list(s)
     print_trend_list(tl)

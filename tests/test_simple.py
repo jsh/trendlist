@@ -1,3 +1,5 @@
+"""Unit tests for trendlist.simple module."""
+
 from copy import copy
 from typing import List, Union
 
@@ -83,21 +85,25 @@ def two_trends(increasing, increasing_smaller) -> List:
 
 @pytest.fixture
 def incs(increasing, increasing_smaller, increasing_tiny) -> List:
+    """Monotonically increasing lists."""
     return [increasing, increasing_smaller, increasing_tiny]
 
 
 @pytest.fixture
 def not_incs(decreasing, decreasing_tiny, rising, falling, level, two_trends) -> List:
+    """Not monotonically increasing lists."""
     return [decreasing, decreasing_tiny, rising, falling, level, two_trends]
 
 
 @pytest.fixture
 def trends(increasing, increasing_smaller, increasing_tiny, rising) -> List:
+    """Rising trends."""
     return [increasing, increasing_smaller, increasing_tiny, rising]
 
 
 @pytest.fixture
 def not_trends(decreasing, decreasing_tiny, falling, level, two_trends) -> List:
+    """Not rising trends."""
     return [decreasing, decreasing_tiny, falling, level, two_trends]
 
 
@@ -107,7 +113,7 @@ def test_Number():
 
 
 def test_is_mono_inc(incs, not_incs) -> None:
-    "is_mono_inc() checks whether a sequence is monotonically increasing." ""
+    """is_mono_inc() checks whether a sequence is monotonically increasing."""
     # for inc in increasing, increasing_tiny:
     for inc in incs:
         assert is_mono_inc(inc)
@@ -116,7 +122,7 @@ def test_is_mono_inc(incs, not_incs) -> None:
 
 
 def test_is_mono_inc2(incs, not_incs) -> None:
-    "is_mono_inc2() checks whether a sequence is monotonically increasing." ""
+    """is_mono_inc2() checks whether a sequence is monotonically increasing."""
     for inc in incs:
         assert is_mono_inc2(inc)
     for not_inc in not_incs:
