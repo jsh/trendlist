@@ -8,3 +8,5 @@
 __pycache__
 # utilities for development
 bin
+# generated documentation
+docs/build
