@@ -23,9 +23,10 @@ Some examples:
 
 For simplicity, let's focus on the sorted (monotonically increasing) sequences, understanding that we can go back and reason analogously about the other three types.
 
-Few real-world sequences are sorted, but lots more generally get bigger from one end to the other.
+Few real-world sequences are sorted, but lots get generally bigger from one end to the other.
 
-How can we relax monotonicity productively?
+Can we relax monotonicity in an interesting way to let us include those, too?
+Let's give it a shot.
 
 ### Trends Are a Generalization of Monotonic Sequences.
 
@@ -38,37 +39,33 @@ the *average* of everything to the left of your finger is less than the *average
 
 Let's call that a *trend*.
 
-In other words, a sorted sequence is a trend
+Trends are a superset:
+that is, a sorted sequence is a trend
 but a trend doesn't have to be sorted.
 
-For example, **1, 2, 4, 8, 16** is both sorted and a trend,
-but **2, 1, 4, 8, 16** is not sorted, yet it is a trend.
-* **mean(2) = 2 < mean(1, 4, 8) = 13/3**,
-* **mean(2, 1) = 3/2 < mean(4, 8) = 6**.
-* **mean(2, 1, 4) = 7/3 < mean(8) = 8**.
+For example, `1, 2, 4, 8, 16` is both sorted and a trend,
+but `2, 1, 4, 8, 16` is not sorted, yet it is a trend.
+* `mean(2) = 2 < mean(1, 4, 8) = 13/3`
+* `mean(2, 1) = 3/2 < mean(4, 8) = 6`
+* `mean(2, 1, 4) = 7/3 < mean(8) = 8`
 
-Not everything is a trend, but trends are far more common than monotonically increasing sequences,
-and interesting in their own right.
+So are `4, 1, 2, 8, 16` and fourteen other permutations of the set `{1, 2, 4, 8, 16}`
+
+Though not everything is a trend, trends are far more common than monotonically increasing sequences.
+
+They're also interesting.
 
 ### We Use the Arithmetic Mean for Averages
 
-The average most of us use for most things is the arithmetic mean: the sum devided by the number of elements.
+The average most of us use for most things is the arithmetic mean: the sum divided by the number of elements.
 `mean([1, 2, 4, 8]) = (1+2+4+8)/4 = 15/4`
 
 For defining trends, any average will work that satisfies one condition:
-if S1 and S2 are sequences, and Average(S1) < Average(S2), then
-Average(S1) < Average(S1 + S2) < Average(S2)
+if `S1` and `S2` are sequences, and `Average(S1) < Average(S2)`, then
+`Average(S1) < Average(S1 + S2) < Average(S2)`.
 
-Geometric and harmonic means both satisfy this condition just as well as the arithmetic mean.  Modes do not. For example,
-
-	mode(1, 1, 2, 2, 2) =  2; mode(1, 1, 3, 3, 3) = 3
-
-but
-
-	mode(1, 1, 2, 2, 2 + 1, 1, 3, 3, 3) =
-	mode(1, 1, 1, 1, 2, 2, 2, 3, 3, 3) = 1
-
-Right now, the package hard-wires "average" to "arithmetic mean."
+Geometric and harmonic means both satisfy this condition, too, as so some other even-more-obscure measures of central tendency,
+but right now, the package hard-wires "average" to "arithmetic mean."
 Enhancing it, so the average to use could be specified in a config file, would be a useful upgrade.
 
 ### We Use Python Floats for Reals
@@ -76,7 +73,7 @@ Enhancing it, so the average to use could be specified in a config file, would b
 If you're a mathematician, you can say things like, *"The probability that two random reals, independently chosen on a finite interval, are equal has Lebesgue measure zero."*
 with a straight face.
 
-This means that if you had a ***real*** random number generator, and generated a snotload of random floats, no two would ever be the same.
+This means that if you had a true random number generator, and generated a snotload of random floats, no two would ever be the same.
 
 In Python, `random()` returns floats in `[0, 1)` that are random enough, and have enough digits,
 that this package treats them like reals and pretends it'll never throw out duplicates.
@@ -94,54 +91,57 @@ This is another article of faith for which I don't yet have a formal proof.
 ### We Build Classes to Represent Trends and TrendLists
 
 The submodule *trendlist.simple* represents trends as lists, and lists of trends as lists of lists.
-This is a simple way to play with trends, but it's a pig.
+This is a simple, and instructive way to play with trends and trendlists, but it's a pig.
+It's not worth waiting for the module to turn a sequences of a thousand random floats into a trendlist.
 
+Instead, the *trendlist* module supplies a second, more efficient approach for bigger problems, built on a simple observation:
+when you tack two trends together, their combined average is a weighted average of the pair.
 
-If you tack two trends together, their combined average is a weighted average of the pair.
 For example,
-a rising trend with length **6** and mean **4.0**
+a rising trend with length `6` and mean `4.0`
 followed by
-a rising trend with length **2** and mean **8.0**,
-will combine to form a single, rising trend of length **8**
-and mean **(6*4.0 + 2*8.0)/8 = 40.0/8 = 5**.
+a rising trend with length `2` and mean `8.0`,
+will combine to form a single, rising trend of length `8`
+and mean `(6*4.0 + 2*8.0)/8 = 40.0/8 = 5`.
 
 Almost no operations with trends require storing
-the actual, **x_i** values that make up the trend;
+the actual, `s_i` values that make up the trend;
 it's enough to keep track of the trend mean and trend length.
-The `trendlist` package defines the class `Trend`, which only stores these two values,
-and another class `TrendList`, a subclass of `List`, which represents lists of `Trend`s.
+The `trendlist` package defines the objects of `class Trend`, which only stores these two values.
+a second class, `TrendList`, a subclass of `List`, represents lists of `Trend` objects.
 
-This gives reasonable performance. You can use these to turn a sequence of a million floats into a TrendList in a couple of seconds.
+Simplifying in this way gives us back reasonable performance.
+You can use these abstractions turn a sequence of a million random floats into a TrendList in a second or two.
 
 ### Trends Have Cool Properties
 
-Any sequence breaks cleanly and uniquely into maximum-length, monotonically increasing subsequences. For example,
+It's pretty obvious that any sequence breaks cleanly and uniquely into maximum-length, monotonically increasing subsequences. For example,
 
-* [3, 1, 4, 1, 5, 9]  -> [[3], [1 4], [1 5 9]]
+* `[3, 1, 4, 1, 5, 9]`  -> `[[3], [1 4], [1 5 9]]`
 
-* [2, 7, 1, 8, 2, 8, 1, 8, 2, 8, 4, 5, 9, 0, 4, 5] -> [[2, 7], [1, 8], [2, 8], [1, 8], [2, 8], [4, 5, 9], [0, 4, 5]]
+* `[2, 7, 1, 8, 2, 8, 1, 8, 2, 8, 4, 5, 9, 0, 4, 5]` -> `[[2, 7], [1, 8], [2, 8], [1, 8], [2, 8], [4, 5, 9], [0, 4, 5]]`
 
-(We're letting single numbers be monotonic sequences, where needed, and we're excluding sequences with adjacent, repeating numbers, like [1, 1, 2, 3, 5, 8, 13])
+We're letting single numbers be monotonic sequences, where needed, and we're excluding sequences with adjacent, repeating numbers, like `[1, 1, 2, 3, 5, 8, 13]`
 
-The monotonic subsequences are called "ascents." They were investigated by Euler, who probably called them something else because he was German and wrote in Latin.
+The monotonic subsequences are called "ascents," and were studied in depth by Euler who probably called them something else because he was German and wrote in Latin.
 
 Notice a couple of things:
 
 * The last number of an ascent is always greater than the first number of the next,
 
-* Out of the N! permutations of a set of N numbers, only one -- the list after sorting -- is monotonically increasing.
+* Out of the `N!` permutations of a set of N numbers, only one -- the list after sorting -- is monotonically increasing.
 
 Pleasantly, every sequence also breaks cleanly and uniquely into maximum-length trends.
 
-* [3, 1, 4, 1, 5, 9]  -> [[3, 1, 4, 1, 5, 9]]
+* `[3, 1, 4, 1, 5, 9]`  -> `[[3, 1, 4, 1, 5, 9]]`
 
-* [2, 7, 1, 8, 2, 8, 1, 8, 2, 8, 4, 5, 9, 0, 4, 5] -> [[2, 7, 1, 8, 2, 8, 1, 8, 2, 8, 4, 5, 9], [0, 4, 5]]
+* `[2, 7, 1, 8, 2, 8, 1, 8, 2, 8, 4, 5, 9, 0, 4, 5]` -> `[[2, 7, 1, 8, 2, 8, 1, 8, 2, 8, 4, 5, 9], [0, 4, 5]]`
 
-Here, we'll note that
+Spoiler alert:
 
 - The means of the trends decrease monotonically. Every trend's mean is greater than the one to its right.
 
-- Out of the N! permutations of a set of N numbers, (N-1)! are single trends.
+- Out of the `N!` permutations of a set of `N` numbers, `(N-1)!` are single trends.
 In fact, every sequence has exactly one circular permutation that's a single, increasing trend.
 
 These perhaps-not-intuitively-obvious properties, along with many other cool things,
