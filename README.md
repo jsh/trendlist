@@ -1,3 +1,10 @@
+<style>
+red { color: red }
+yellow { color: yellow }
+blue { color: blue }
+green { color: green }
+</style>
+
 # Trendlist
 
 This repository is source code for the *trendlist* project.
@@ -66,7 +73,10 @@ if `S1` and `S2` are sequences, and `Average(S1) < Average(S2)`, then
 
 Geometric and harmonic means both satisfy this condition, too, as so some other even-more-obscure measures of central tendency,
 but right now, the package hard-wires "average" to "arithmetic mean."
-Enhancing it, so the average to use could be specified in a config file, would be a useful upgrade.
+
+<green>
+Enhancing *trendlist*, so the average to use is be specified in a config file, would be a useful upgrade.
+</green>
 
 ### We Use Python Floats for Reals
 
@@ -81,12 +91,17 @@ that this package treats them like reals and pretends it'll never throw out dupl
 The code nods to reality by throwing an exception if it notices a violation of this assumption.
 It hasn't yet.
 
+<green>
 I'm assuming averages of two different random sequences of reals
-are probably also never the same (again *"...Lebesgue measure zero"*),
-but I would welcome a proof.
+are probably also never the same (again *"...Lebesgue measure zero"*).
+I would welcome a proof.
+</green>
 
+<green>
 I believe the same about subsets of powers of primes.  I think that for any set of prime powers, `p**k`, each of its `2**k` subsets has a different mean.
 This is another article of faith for which I don't yet have a formal proof.
+If you have one, please speak up!
+</green>
 
 ### We Build Classes to Represent Trends and TrendLists
 
@@ -145,7 +160,7 @@ Spoiler alert:
 In fact, every sequence has exactly one circular permutation that's a single, increasing trend.
 
 These perhaps-not-intuitively-obvious properties, along with many other cool things,
-are shown in Ehrenfeucht, *et al. (vide infra)*.
+are proved in Ehrenfeucht, *et al. (vide infra)*.
 
 ### A Sketch of the Development Environment
 
@@ -158,7 +173,9 @@ The test suite is tested with `mutmut`.
 Every one of these is documented at <https://readthedocs.io> under *toolname*.readthedocs.io .
 except `safety`, which is documented at <https://pyup.io/safety>
 
+<green>
 I welcome suggestions on what other checks I should add.
+</green>
 
 
 ### There's Plenty of Documentation
