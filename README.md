@@ -1,11 +1,3 @@
-<style>
-red { color: red }
-yellow { color: yellow }
-blue { color: blue }
-green { color: green }
-todo { color: green}
-</style>
-
 # Trendlist
 
 This repository is source code for the *trendlist* project.
@@ -74,12 +66,10 @@ if `S1` and `S2` are sequences, and `Average(S1) < Average(S2)`, then
 
 Geometric and harmonic means both satisfy this condition, too, as so some other even-more-obscure measures of central tendency,
 but right now, the package hard-wires "average" to "arithmetic mean."
-<p>
-<todo>
-Enhancing *trendlist*, so you can specify the average to use in a config file,
-would be a useful upgrade.
-</todo>
-</p>
+
+**TODO: Enhancing *trendlist*,
+so you can specify the average to use in a config file,
+would be a useful upgrade.**
 
 
 ### We Use Python Floats for Reals
@@ -95,12 +85,8 @@ that this package treats them like reals and pretends it'll never throw out dupl
 The code nods to reality by throwing an exception if it notices a violation of this assumption.
 It hasn't yet.
 
-<p>
-<todo>
-Specifying the random-number generator in a config file
-would be useful.
-</todo>
-</p>
+**TODO: Specifying the random-number generator in a config file
+would be a useful enhancement.**
 
 ### Two Utilities: rands() and powers()
 
@@ -110,21 +96,17 @@ and `pows`, which returns lists of powers of two
 (`[1, 2, 4, 8, ...]`).
 
 Both are useful for writing code to explore and illustrate trends.
-<p>
-<todo>
-I've assumed averages of two different random sequences of reals
+
+**TODO: I've assumed averages of two different random sequences of reals
 are never the same. (*"...Lebesgue measure zero"*).
-I would welcome a proof.
-</todo>
-</p>
-<p>
-<todo>
-I believe the same about subsets of powers of primes.
+I would welcome a proof.**
+
+**TODO: I believe the same about subsets of powers of primes.
 You can find a proof that no two subsets of `pows(N, base=2)`
-have the same means, but I have no general proof for other prime bases.
-Again, a proof would be welcome.
-</todo>
-</p>
+have the same means
+in [https://github.com/jsh/trendlist-notebooks/Addenda](the Addenda),
+but I have no general proof for other prime bases.
+Again, a proof would be nice.**
 
 
 ### We Build Classes to Represent Trends and TrendLists
@@ -197,18 +179,15 @@ The test suite is tested with `mutmut`.
 Every one of these is documented at <https://readthedocs.io> under *toolname*.readthedocs.io .
 except `safety`, which is documented at <https://pyup.io/safety>
 
-<p>
-<todo>
-I welcome suggestions on what other checks I should add.
-</todo>
-</p>
-
+**TODO: I'd welcome suggestions on what other checks I should add.**
 
 
 ### There's Plenty of Documentation
 
 In addition to this README, the *trendlist* package is documented at `readthedocs.io`.
-It also links to a repository full of tutorial notebooks, which are also available through `binder`.
+It also links to [https://github.com/jsh/trendlist-notebooks](a repository full of tutorial notebooks).
+
+You can even bring the notebooks up in a [https://mybinder.org](binder) container, in the cloud, by clicking on the repo's `binder` badge.
 
 
 ## Reference
