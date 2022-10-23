@@ -59,8 +59,6 @@ def trend_list(s: List[Number]) -> List[List[Number]]:
     trend_list = []
     while s:
         p = pfx_trend(s)  # find the longest, leftmost trend
-        if not p:
-            return trend_list
         trend_list.append(p)  # tack it onto the end of the trendlist
         s = s[len(p) :]  # decompose what remains  # noqa
     return trend_list

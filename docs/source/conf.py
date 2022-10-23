@@ -23,7 +23,7 @@ copyright = "2022, Jeffrey S. Haemer"
 author = "Jeffrey S. Haemer"
 
 # The full version, including alpha/beta/rc tags
-release = "0.1.5"
+release = "0.1.6"
 
 
 # -- General configuration ---------------------------------------------------
