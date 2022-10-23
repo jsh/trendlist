@@ -67,7 +67,7 @@ def trend_list(s: List[Number]) -> List[List[Number]]:
 def print_trend_list(trendlist: List[List[Number]]) -> None:
     """Nice, colored printout of a trend_list."""
     term = blessed.Terminal()
-    for i, trend in enumerate(trendlist, start=1):
+    for i, trend in enumerate(trendlist):
         trend_l = [f"{elem:0.2f}" for elem in trend]
         trend_s = ",".join(trend_l)
         trend_p = "[" + trend_s + "]"

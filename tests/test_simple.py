@@ -158,9 +158,9 @@ def test_trend_list(two_trends, increasing, increasing_smaller, decreasing) -> N
 
 def test_print_trends(capsys) -> None:  # TODO: make a decent test here
     """print_trends() decomposes into trend_list, then pretty-prints it."""
-    seq = [5, 4, 3, 2, 1]
-    print_trends(seq)
+    print_trends(pows(3))
     captured = capsys.readouterr()
-    assert captured.out == "[5.00][4.00][3.00][2.00][1.00]"
-    # assert captured.out ==
-    # '\x1b[31m[5.00]\x1b(B\x1b[m\x1b[32m[4.00]\x1b(B\x1b[m\x1b[33m[3.00]\x1b(B\x1b[m\x1b[34m[2.00]\x1b(B\x1b[m\x1b[35m[1.00]\x1b(B\x1b[m'
+    assert captured.out == "[1.00,2.00,4.00]"
+    print_trends(list(reversed(pows(3))))
+    captured = capsys.readouterr()
+    assert captured.out == "[4.00][2.00][1.00]"
