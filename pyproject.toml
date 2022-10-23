@@ -3,7 +3,7 @@ profile = "black"
 
 [tool.poetry]
 name = "trendlist"
-version = "0.1.6"
+version = "0.1.7"
 description = "Define, manipulate and study lists of Trends."
 authors = ["Jeffrey S. Haemer <jeffrey.haemer@gmail.com>"]
 
@@ -11,6 +11,7 @@ authors = ["Jeffrey S. Haemer <jeffrey.haemer@gmail.com>"]
 python = "^3.9"
 blessed = "^1.19.1"
 parso = "^0.8.3"
+mypy = "^0.982"
 
 [tool.poetry.dev-dependencies]
 black = "^22.10.0"

@@ -188,7 +188,7 @@ class TrendList(list):
         rotations = 0  # how many rotations to get to a single trend
         orig_start = 0  # position in original list that will become new[0]
         while len(self) > 1:
-            assert len(self) != 1  # for mutmut :-(
+            assert len(self) != 1  # noqa, just here for mutmut :-(
             orig_start = (
                 orig_start + self[0].length
             )  # position in self that will become new[0] following rotation
