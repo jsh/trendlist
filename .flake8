@@ -1,5 +1,7 @@
 [flake8]
 max-line-length = 88
+max-complexity = 5
+--docstring-convention = google
 extend-ignore = E203,E501
 per-file-ignores =
     # imported but unused
