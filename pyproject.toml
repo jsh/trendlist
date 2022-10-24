@@ -1,6 +1,12 @@
 [tool.isort]
 profile = "black"
 
+[tool.mypy]
+exclude = "source/conf.py"
+namespace_packages = true
+explicit_package_bases = true
+show_error_codes = true
+
 [tool.poetry]
 name = "trendlist"
 version = "0.1.8"
