@@ -3,9 +3,24 @@ profile = "black"
 
 [tool.mypy]
 exclude = "source/conf.py"
-namespace_packages = true
 explicit_package_bases = true
+namespace_packages = true
 show_error_codes = true
+
+[tool.flake8]
+docstring-convention = "google"
+extend-ignore = ["E203","E501"]
+max-complexity = 5
+max-line-length = 88
+per-file-ignores = [
+    "test_utils.py: S101,S311",
+	"test_simple.py: S101",
+	"test_trendlist.py: S101",
+	"test_Trend.py: S101",
+	"test_TrendList.py: S101",
+	"test_package.py: S101",
+	"trendlist.py: S311",
+]
 
 [tool.poetry]
 name = "trendlist"
@@ -23,10 +38,10 @@ safety = "^2.3.1"
 
 [tool.poetry.dev-dependencies]
 black = "^22.10.0"
-flake8-bandit = "^3.0.0"
 flake8-bugbear = "^22.3.23"
 flake8-docstrings = "^1.6.0"
-flake8="^4.0.1"
+flake8-pyproject = "^1.1.0"
+flake8="^5.0.1"
 ipython = "^8.5.0"
 isort = "^5.10.1"
 mutmut = "^2.4.0"
