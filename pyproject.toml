@@ -1,11 +1,8 @@
+[tool.bandit]
+skips = ["B101", "B311"]
+
 [tool.isort]
 profile = "black"
-
-[tool.mypy]
-exclude = "source/conf.py"
-explicit_package_bases = true
-namespace_packages = true
-show_error_codes = true
 
 [tool.flake8]
 docstring-convention = "google"
@@ -22,6 +19,12 @@ per-file-ignores = [
 	"trendlist.py: S311",
 ]
 
+[tool.mypy]
+exclude = "source/conf.py"
+explicit_package_bases = true
+namespace_packages = true
+show_error_codes = true
+
 [tool.poetry]
 name = "trendlist"
 version = "0.1.8"
@@ -31,12 +34,9 @@ authors = ["Jeffrey S. Haemer <jeffrey.haemer@gmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.9"
 blessed = "^1.19.1"
-parso = "^0.8.3"
-mypy = "^0.982"
-bandit = "^1.7.4"
-safety = "^2.3.1"
 
 [tool.poetry.dev-dependencies]
+bandit = "^1.7.4"
 black = "^22.10.0"
 flake8-bugbear = "^22.3.23"
 flake8-docstrings = "^1.6.0"
@@ -45,10 +45,13 @@ flake8="^5.0.1"
 ipython = "^8.5.0"
 isort = "^5.10.1"
 mutmut = "^2.4.0"
+mypy = "^0.982"
 myst-parser = "^0.18.1"
+# parso = "^0.8.3"
 pytest = "^7.1.1"
 pytest-cov = "^4.0.0"
 pytest-random-order = "^1.0.4"
+safety = "^2.3.1"
 sphinx = "^4.3.0"
 sphinx-rtd-theme = "^1.0.0"
 
