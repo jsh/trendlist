@@ -3,7 +3,7 @@ profile = "black"
 
 [tool.poetry]
 name = "trendlist"
-version = "0.1.7"
+version = "0.1.8"
 description = "Define, manipulate and study lists of Trends."
 authors = ["Jeffrey S. Haemer <jeffrey.haemer@gmail.com>"]
 
