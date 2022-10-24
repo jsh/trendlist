@@ -52,8 +52,7 @@ def rands(n: int, seed: float = None, start: int = 0) -> Generator[float, None, 
 
 @dataclass
 class Rotations:
-    """
-    Charactize rotated trendlist.
+    """Charactize rotated trendlist.
 
     Where the original start has rotated to,
     and how many rotations it took to get it there.
