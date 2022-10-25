@@ -19,13 +19,13 @@ from trendlist.simple import (
 SEQ_LEN = 5
 
 
-@pytest.fixture
+@pytest.fixture()
 def increasing() -> List:
     """Monotonically increasing sequence."""
     return pows(SEQ_LEN)
 
 
-@pytest.fixture
+@pytest.fixture()
 def increasing_smaller(increasing) -> List:
     """Shorter monotonically increasing sequence."""
     inc = copy(increasing)
@@ -33,13 +33,13 @@ def increasing_smaller(increasing) -> List:
     return inc[smaller]
 
 
-@pytest.fixture
+@pytest.fixture()
 def increasing_tiny() -> List:
     """Just two."""
     return [1, 2]
 
 
-@pytest.fixture
+@pytest.fixture()
 def decreasing(increasing) -> List:
     """Monotonically decreasing sequence."""
     decreasing = copy(increasing)
@@ -47,13 +47,13 @@ def decreasing(increasing) -> List:
     return decreasing
 
 
-@pytest.fixture
+@pytest.fixture()
 def decreasing_tiny() -> List:
     """Just two."""
     return [2, 1]
 
 
-@pytest.fixture
+@pytest.fixture()
 def rising(increasing) -> List:
     """Rising trend."""
     rising = copy(increasing)
@@ -61,7 +61,7 @@ def rising(increasing) -> List:
     return rising
 
 
-@pytest.fixture
+@pytest.fixture()
 def falling(increasing) -> List:
     """Falling trend."""
     falling = copy(increasing)
@@ -69,13 +69,13 @@ def falling(increasing) -> List:
     return falling
 
 
-@pytest.fixture
+@pytest.fixture()
 def level() -> List:
     """Level list."""
     return [1 for elem in range(SEQ_LEN)]
 
 
-@pytest.fixture
+@pytest.fixture()
 def two_trends(increasing, increasing_smaller) -> List:
     """Sequence with two trends."""
     two_trends = copy(increasing)
@@ -83,31 +83,31 @@ def two_trends(increasing, increasing_smaller) -> List:
     return two_trends
 
 
-@pytest.fixture
+@pytest.fixture()
 def incs(increasing, increasing_smaller, increasing_tiny) -> List:
     """Monotonically increasing lists."""
     return [increasing, increasing_smaller, increasing_tiny]
 
 
-@pytest.fixture
+@pytest.fixture()
 def not_incs(decreasing, decreasing_tiny, rising, falling, level, two_trends) -> List:
     """Not monotonically increasing lists."""
     return [decreasing, decreasing_tiny, rising, falling, level, two_trends]
 
 
-@pytest.fixture
+@pytest.fixture()
 def trends(increasing, increasing_smaller, increasing_tiny, rising) -> List:
     """Rising trends."""
     return [increasing, increasing_smaller, increasing_tiny, rising]
 
 
-@pytest.fixture
+@pytest.fixture()
 def not_trends(decreasing, decreasing_tiny, falling, level, two_trends) -> List:
     """Not rising trends."""
     return [decreasing, decreasing_tiny, falling, level, two_trends]
 
 
-def test_Number():
+def test_number_type():
     """Type Number is defined correctly."""
     assert Number == Union[int, float]
 

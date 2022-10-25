@@ -10,6 +10,7 @@ extend-ignore = ["E203","E501"]
 max-complexity = 5
 max-line-length = 88
 per-file-ignores = [
+	"conf.py: A001,E800",
     "test_utils.py: S101,S311",
 	"test_simple.py: S101",
 	"test_trendlist.py: S101",
@@ -38,16 +39,22 @@ blessed = "^1.19.1"
 [tool.poetry.dev-dependencies]
 bandit = "^1.7.4"
 black = "^22.10.0"
+# darglint = "^1.8.1"
 flake8-bugbear = "^22.3.23"
+flake8-builtins = "^2.0.0"
 flake8-docstrings = "^1.6.0"
+flake8-eradicate = "^1.4.0"
+flake8-mutable = "^1.2.0"
 flake8-pyproject = "^1.1.0"
+flake8-pytest-style = "^1.6.0"
 flake8="^5.0.1"
 ipython = "^8.5.0"
 isort = "^5.10.1"
 mutmut = "^2.4.0"
 mypy = "^0.982"
 myst-parser = "^0.18.1"
-# parso = "^0.8.3"
+parso = "^0.8.3"
+pep8-naming = "^0.13.2"
 pytest = "^7.1.1"
 pytest-cov = "^4.0.0"
 pytest-random-order = "^1.0.4"

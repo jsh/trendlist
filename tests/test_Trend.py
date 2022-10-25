@@ -38,9 +38,8 @@ def test_trend_default() -> None:
     """Default fields have expected values."""
     trend = Trend(mean=0)
     assert trend.length == 1
-    with pytest.raises(ValueError) as excerr:
+    with pytest.raises(ValueError, match="mean must be initialized"):
         trend = Trend(length=1)
-    assert str(excerr.value) == "mean must be initialized"
 
 
 def test_repr(test_trends: List[Trend]) -> None:
@@ -75,9 +74,8 @@ def test_lt(test_trends: List[Trend]) -> None:
 
 def test_bad_merge(test_trends: List[Trend]) -> None:
     """Test merge."""
-    with pytest.raises(ValueError) as excerr:
+    with pytest.raises(ValueError, match="merging trend mean must differ!"):
         test_trends[0].merge(test_trends[1])
-    assert str(excerr.value) == "merging trend mean must differ!"
 
 
 def test_merge(test_trends: List[Trend]) -> None:
@@ -99,7 +97,7 @@ def test_valid_compare(operator) -> None:
 
 
 @pytest.mark.parametrize(
-    "exception_type, mean, length, message",
+    ("exception_type", "mean", "length", "message"),
     [
         (ValueError, None, None, "mean must be initialized"),
         (ValueError, None, 1, "mean must be initialized"),

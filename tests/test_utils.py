@@ -64,8 +64,8 @@ def test_rand_start() -> None:
         assert list(rands(n, seed=seed, start=i)) == list(dq)
 
 
-def test_Rotations() -> None:
-    """Rotations initialized."""
+def test_rotations_init() -> None:
+    """Rotations initialized correctly."""
     rots = Rotations()
     assert rots.start == 0
     assert rots.num_rots == 0
