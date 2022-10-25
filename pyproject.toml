@@ -12,9 +12,9 @@ max-line-length = 88
 per-file-ignores = [
 	"conf.py: A001,E800",
     "test_utils.py: S101,S311",
-	"test_simple.py: S101",
+	"test_simple.py: S101,DAR101,DAR201",
 	"test_trendlist.py: S101",
-	"test_Trend.py: S101",
+	"test_Trend.py: S101,DAR101,DAR201",
 	"test_TrendList.py: S101",
 	"test_package.py: S101",
 	"trendlist.py: S311",
@@ -35,6 +35,7 @@ authors = ["Jeffrey S. Haemer <jeffrey.haemer@gmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.9"
 blessed = "^1.19.1"
+darglint = "^1.8.1"
 
 [tool.poetry.dev-dependencies]
 bandit = "^1.7.4"

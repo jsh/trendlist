@@ -176,6 +176,14 @@ tomli = {version = "*", optional = true, markers = "python_full_version <= \"3.1
 toml = ["tomli"]
 
 [[package]]
+name = "darglint"
+version = "1.8.1"
+description = "A utility for ensuring Google-style docstrings stay up to date with the source code."
+category = "main"
+optional = false
+python-versions = ">=3.6,<4.0"
+
+[[package]]
 name = "decorator"
 version = "5.1.1"
 description = "Decorators for Humans"
@@ -1207,7 +1215,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "flake8 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "fa2957866dff9d2ae406ac6d386f9d1fbfa194e88c431c14233d7bbd166773ce"
+content-hash = "79fdb4098a91672f2848aaeb3338add333996f6697bf60a47b81f22b8dad2284"
 
 [metadata.files]
 alabaster = []
@@ -1225,6 +1233,7 @@ charset-normalizer = []
 click = []
 colorama = []
 coverage = []
+darglint = []
 decorator = []
 docutils = []
 dparse = []

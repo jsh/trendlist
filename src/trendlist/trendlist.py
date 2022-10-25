@@ -14,10 +14,19 @@ Initializer = Union[Number, "Trend"]
 def pows(n: int, base: int = 2, start: int = 0) -> List[int]:
     """List sequences of powers of the base.
 
-    base permits specifying the base
+    n specifies how many ints in the returned list
+    base permits specifying the base. E.g., base=2 returns [2^0, ..., 2^(n-1)]
     start permits returning the numbers in a different (rotated) order,
         e.g., start=3 will give the numbers in the order
         "3rd, 4th, ... nth, 0th, 1st, 2nd"
+
+    Args:
+        n: how many to return
+        base: what base to use for the powers
+        start: how many positions to rotate the sequence before starting
+
+    Returns:
+        List of [base^0, ..., base^(n-1)]
 
     TODO: I don't think it's worth adding a "reverse" argument. Amiright?
     """
@@ -37,6 +46,14 @@ def rands(n: int, seed: float = None, start: int = 0) -> Generator[float, None, 
     start permits yielding the numbers in a different (rotated) order,
         e.g., start=3 will give the numbers in the order
         "3rd, 4th, ... nth, 0th, 1st, 2nd"
+
+    Args:
+        n: how many to yield
+        seed: where to start (random number generator seed)
+        start: how many positions to rotate the sequence before starting
+
+    Yields:
+        Random floats generated from the seed.
     """
     random.seed(seed)
     start = start % n  # in case start >= n
@@ -107,7 +124,18 @@ class Trend:
         return f"({self.mean:.2f},{self.length})"
 
     def merge(self, other: "Trend", reverse=False) -> Optional["Trend"]:
-        """Merge a trend into the current trend."""
+        """Merge a trend into the current trend.
+
+        Args:
+            other: A trend
+            reverse: Merge decreasing trends.
+
+        Raises:
+            ValueError: self and other have same means.
+
+        Returns:
+            The merged trends if a merge is possible, None if not.
+        """
         if self.mean == other.mean:
             raise ValueError("merging trend mean must differ!")
         can_merge = operator.gt if reverse else operator.lt
@@ -128,7 +156,12 @@ class TrendList(list):
     def __init__(
         self, s: Iterable[Initializer] = None, reverse: bool = False
     ) -> None:  # noqa: E501
-        """Initialize Trend object."""
+        """Initialize Trend object.
+
+        Args:
+            s: A list of either numbers or of Trend objects
+            reverse: Create a decreasing trend
+        """
         if s is None:
             s = []
         self._reverse = reverse
@@ -152,6 +185,12 @@ class TrendList(list):
         Add a Trend into a TrendList.
         Merge with the rightmost Trend object,
         then continue recursively.
+
+        Raises:
+            TypeError: object being merged not a Trend
+
+        Args:
+            other: Trend object to stick on the right end
         """
         if not isinstance(other, Trend):
             raise TypeError("appended element must be Trend")
@@ -166,7 +205,11 @@ class TrendList(list):
             self.extend([popped, other])  # push popped back on, then other
 
     def rotate(self) -> "TrendList":
-        """Move the leftmost trend to the right end, then merge."""
+        """Move the leftmost trend to the right end, then merge.
+
+        Returns:
+            New trendlist after single, left-to-right rotation and required merge(s).
+        """
         merged = self
         if len(merged) == 1:
             return self
@@ -176,14 +219,16 @@ class TrendList(list):
         merged = right
         return merged
 
-    """
-    After rotating a list, perhaps more than once,
-    how many rotations did you do,
-    and where, in the original list, was the current head?
-    """
-
     def single(self) -> "Rotations":
-        """Rotate until there's a single trend."""
+        """Rotate until there's a single trend.
+
+        After rotating a list, perhaps more than once,
+        how many rotations did you do,
+        and where, in the original list, was the current head?
+
+        Returns:
+            Rotations(rotations = # required for single trend, orig_start = where single trend start was in original list)
+        """
         rotations = 0  # how many rotations to get to a single trend
         orig_start = 0  # position in original list that will become new[0]
         while len(self) > 1:
