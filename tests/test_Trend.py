@@ -74,8 +74,9 @@ def test_lt(test_trends: List[Trend]) -> None:
 
 def test_bad_merge(test_trends: List[Trend]) -> None:
     """Test merge."""
-    with pytest.raises(ValueError, match="merging trend mean must differ!"):
+    with pytest.raises(ValueError, match="merging trend mean must differ!") as excerr:
         test_trends[0].merge(test_trends[1])
+    assert "merging trend mean must differ!" == str(excerr.value)
 
 
 def test_merge(test_trends: List[Trend]) -> None:
