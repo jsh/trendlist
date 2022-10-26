@@ -1,6 +1,6 @@
-# Trendlist
+# The Trendlist Project
 
-This repository is source code for the *trendlist* project.
+This repository is source code for the *Trendlist* project.
 It builds the *trendlist* package, which includes the submodule *trendlist.simple*.
 
 ![Trends](2020_google_trends.png) <!--- https://imgs.xkcd.com/comics/2020_google_trends.png --->
