@@ -12,7 +12,7 @@ Initializer = Union[Number, "Trend"]
 
 
 def pows(n: int, base: int = 2, start: int = 0) -> List[int]:
-    """List sequences of powers of the base.
+    """Return sequence of `n` powers of the base.
 
     `n` specifies how many ints in the returned list
 
@@ -41,23 +41,26 @@ def pows(n: int, base: int = 2, start: int = 0) -> List[int]:
 
 
 def rands(n: int, seed: float = None, start: int = 0) -> Generator[float, None, None]:
-    """Generate sequences of random floats.
+    """Generate sequence of `n` random floats.
 
-    Ignoring flake8 warning S311 about pseudo-random-number generators.
-    I want a pseudo-random number generator!
+    `seed` permits a reproduceable "random" sequence
 
-    seed permits a reproduceable "random" sequence
-    start permits yielding the numbers in a different (rotated) order,
-        e.g., start=3 will give the numbers in the order
-        "3rd, 4th, ... nth, 0th, 1st, 2nd"
+    `start` permits yielding the numbers in a different (rotated) order,
+    For example, `start=3` will give the numbers in the order
+    "3rd, 4th, ... nth, 0th, 1st, 2nd"
 
     Args:
-        n: how many to yield
+        n: how many floats to yield
+
         seed: where to start (random number generator seed)
+
         start: how many positions to rotate the sequence before starting
 
     Yields:
-        Random floats generated from the seed.
+        Random floats [float_0, float_1, ... float_(n-1)] generated from the seed.
+
+    Ignore flake8 warning S311 about pseudo-random-number generators.
+    I *want* a pseudo-random number generator!
     """
     random.seed(seed)
     start = start % n  # in case start >= n
