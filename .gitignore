@@ -10,3 +10,4 @@ __pycache__
 bin
 # generated documentation
 docs/build
+_autosummary
