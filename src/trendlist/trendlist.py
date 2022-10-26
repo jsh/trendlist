@@ -24,9 +24,7 @@ def pows(n: int, base: int = 2, start: int = 0) -> List[int]:
 
     Args:
         n: how many powers to return
-
         base: what base to use for the powers
-
         start: how many positions to rotate the sequence before starting
 
     Returns:
@@ -51,9 +49,7 @@ def rands(n: int, seed: float = None, start: int = 0) -> Generator[float, None, 
 
     Args:
         n: how many floats to yield
-
         seed: where to start (random number generator seed)
-
         start: how many positions to rotate the sequence before starting
 
     Yields:

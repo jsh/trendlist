@@ -179,7 +179,7 @@ toml = ["tomli"]
 name = "darglint"
 version = "1.8.1"
 description = "A utility for ensuring Google-style docstrings stay up to date with the source code."
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.6,<4.0"
 
@@ -526,6 +526,18 @@ python-versions = "*"
 
 [package.dependencies]
 six = "*"
+
+[[package]]
+name = "livereload"
+version = "2.6.3"
+description = "Python LiveReload is an awesome tool for web developers"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+six = "*"
+tornado = {version = "*", markers = "python_version > \"2.7\""}
 
 [[package]]
 name = "markdown-it-py"
@@ -1031,6 +1043,22 @@ lint = ["types-requests", "types-typed-ast", "docutils-stubs", "mypy (>=0.931)",
 docs = ["sphinxcontrib-websupport"]
 
 [[package]]
+name = "sphinx-autobuild"
+version = "2021.3.14"
+description = "Rebuild Sphinx documentation on changes, with live-reload in the browser."
+category = "dev"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+colorama = "*"
+livereload = "*"
+sphinx = "*"
+
+[package.extras]
+test = ["pytest", "pytest-cov"]
+
+[[package]]
 name = "sphinx-rtd-theme"
 version = "1.0.0"
 description = "Read the Docs theme for Sphinx"
@@ -1160,6 +1188,14 @@ optional = false
 python-versions = ">=3.7"
 
 [[package]]
+name = "tornado"
+version = "6.2"
+description = "Tornado is a Python web framework and asynchronous networking library, originally developed at FriendFeed."
+category = "dev"
+optional = false
+python-versions = ">= 3.7"
+
+[[package]]
 name = "traitlets"
 version = "5.5.0"
 description = ""
@@ -1215,7 +1251,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "flake8 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "79fdb4098a91672f2848aaeb3338add333996f6697bf60a47b81f22b8dad2284"
+content-hash = "3c8f35d75396e373b5540ae2e1929e48d69ca550fc95ef3c85326b2557fbc0b9"
 
 [metadata.files]
 alabaster = []
@@ -1262,6 +1298,7 @@ jedi = []
 jinja2 = []
 jinxed = []
 junit-xml = []
+livereload = []
 markdown-it-py = []
 markupsafe = []
 matplotlib-inline = []
@@ -1303,6 +1340,7 @@ six = []
 smmap = []
 snowballstemmer = []
 sphinx = []
+sphinx-autobuild = []
 sphinx-rtd-theme = []
 sphinxcontrib-applehelp = []
 sphinxcontrib-devhelp = []
@@ -1314,6 +1352,7 @@ stack-data = []
 stevedore = []
 toml = []
 tomli = []
+tornado = []
 traitlets = []
 typing-extensions = []
 urllib3 = []

@@ -28,19 +28,18 @@ show_error_codes = true
 
 [tool.poetry]
 name = "trendlist"
-version = "0.1.10"
+version = "0.1.11"
 description = "Define, manipulate and study lists of Trends."
 authors = ["Jeffrey S. Haemer <jeffrey.haemer@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
 blessed = "^1.19.1"
-darglint = "^1.8.1"
 
 [tool.poetry.dev-dependencies]
 bandit = "^1.7.4"
 black = "^22.10.0"
-# darglint = "^1.8.1"
+darglint = "^1.8.1"
 flake8-bugbear = "^22.3.23"
 flake8-builtins = "^2.0.0"
 flake8-docstrings = "^1.6.0"
@@ -61,6 +60,7 @@ pytest-cov = "^4.0.0"
 pytest-random-order = "^1.0.4"
 safety = "^2.3.1"
 sphinx = "^4.3.0"
+sphinx-autobuild = "^2021.3.14"
 sphinx-rtd-theme = "^1.0.0"
 
 [build-system]

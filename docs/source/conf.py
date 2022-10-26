@@ -13,7 +13,10 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../..'))  # source code directory relative to this file
+
+sys.path.insert(
+    0, os.path.abspath("../..")
+)  # source code directory relative to this file
 
 
 # -- Project information -----------------------------------------------------
@@ -23,7 +26,7 @@ copyright = "2022, Jeffrey S. Haemer"
 author = "Jeffrey S. Haemer"
 
 # The full version, including alpha/beta/rc tags
-release = "0.1.10"
+release = "0.1.11"
 
 
 # -- General configuration ---------------------------------------------------
