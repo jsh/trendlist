@@ -187,7 +187,7 @@ except `safety`, which is documented at <https://pyup.io/safety>
 In addition to this README, the *trendlist* package is documented at `readthedocs.io`.
 It also links to [https://github.com/jsh/trendlist-notebooks](a repository full of tutorial notebooks).
 
-You can even bring the notebooks up in a [https://mybinder.org](binder) container, in the cloud, by clicking on the repo's `binder` badge.
+You can even bring the notebooks up in a [https://mybinder.org](binder container), in the cloud, by clicking on the repo's `binder` badge.
 
 
 ## Reference

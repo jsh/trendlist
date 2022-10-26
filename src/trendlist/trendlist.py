@@ -14,15 +14,19 @@ Initializer = Union[Number, "Trend"]
 def pows(n: int, base: int = 2, start: int = 0) -> List[int]:
     """List sequences of powers of the base.
 
-    n specifies how many ints in the returned list
-    base permits specifying the base. E.g., base=2 returns [2^0, ..., 2^(n-1)]
-    start permits returning the numbers in a different (rotated) order,
-        e.g., start=3 will give the numbers in the order
-        "3rd, 4th, ... nth, 0th, 1st, 2nd"
+    `n` specifies how many ints in the returned list
+
+    `base` permits specifying the base, for example, `base=5` returns `[5^0, ..., 5^(n-1)]`
+
+    `start` permits returning the numbers in a different (rotated) order,
+    for example, `start=3` will give the numbers in the order
+    "3rd, 4th, ... nth, 0th, 1st, 2nd"
 
     Args:
-        n: how many to return
+        n: how many powers to return
+
         base: what base to use for the powers
+
         start: how many positions to rotate the sequence before starting
 
     Returns:
