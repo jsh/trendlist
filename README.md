@@ -102,10 +102,6 @@ are never the same. (*"...Lebesgue measure zero"*).
 I would welcome a proof.**
 
 **TODO: I believe the same about subsets of powers of primes.
-You can find a proof that no two subsets of `pows(N, base=2)`
-have the same means
-in [https://github.com/jsh/trendlist-notebooks/Addenda](the Addenda),
-but I have no general proof for other prime bases.
 Again, a proof would be nice.**
 
 
@@ -173,10 +169,11 @@ are proved in Ehrenfeucht, *et al. (vide infra)*.
 I use `poetry` for environment and dependency management.
 The file `pyproject.toml` contains specifications.
 
-The code is linted with `isort` `black`, `flake8`, `mypy`, `bandit`, and `safety`, and tested with `pytest`.
-The test suite is tested with `mutmut`.
+The code is linted with `isort` `black`, `flake8`, `mypy`, `bandit`, and `safety`, and tested with `pytest`. 
+The test suite provides 100% code coverage, and is tested with `mutmut`.
+Configuration, settings, and plugins for tools are defined in `pyproject.toml`.
 
-Every one of these is documented at <https://readthedocs.io> under *toolname*.readthedocs.io .
+The tools themselves are documented at <https://readthedocs.io> under *toolname*.readthedocs.io ,
 except `safety`, which is documented at <https://pyup.io/safety>
 
 **TODO: I'd welcome suggestions on what other checks I should add.**
@@ -184,10 +181,10 @@ except `safety`, which is documented at <https://pyup.io/safety>
 
 ### There's Plenty of Documentation
 
-In addition to this README, the *trendlist* package is documented at `readthedocs.io`.
-It also links to [https://github.com/jsh/trendlist-notebooks](a repository full of tutorial notebooks).
+In addition to this README, the *trendlist* package is documented at [`readthedocs.io`](https://trendlist.readthedocs.io/en/latest/index.html).
 
-You can even bring the notebooks up in a [https://mybinder.org](binder container), in the cloud, by clicking on the repo's `binder` badge.
+There is [a repository of jupyter-notebook tutorials](https://github.com/jsh/trendlist-notebooks),
+which you can clone yourself or bring up in [a binder container](https://mybinder.org/v2/gh/jsh/trendlist-notebooks.git/HEAD) either through the link here, or by clicking on the `binder` badge in the GitHub repository.
 
 
 ## Reference
