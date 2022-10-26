@@ -1,0 +1,16 @@
+#!/bin/bash -eu
+
+# formatting
+isort .
+black .
+
+# misc "best practices" checks
+flake8 .
+bandit -c pyproject.toml -r -q .
+safety check | grep vulnerabilities
+mypy -p src
+mypy -p tests
+
+# tests
+pytest --cov -q --no-summary
+mutmut run --simple-output | tail -1

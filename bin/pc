@@ -1,0 +1,4 @@
+#!/bin/bash -eu
+
+pytest --cov --cov-report=html &&
+	open htmlcov/index.html
