@@ -119,15 +119,10 @@ class NumLists(list):
 
         Returns:
             Printable representation of the NumList objects.
-
-        Raises:
-            TypeError: item not a NumList object.
         """
         term = blessed.Terminal()
         printable = ""
         for i, item in enumerate(self):
-            if not isinstance(item, NumList):
-                raise TypeError(f"{item} must be NumList object")
             trend_l = [f"{elem:0.2f}" for elem in item]
             trend_s = ",".join(trend_l)
             trend_p = "[" + trend_s + "]"

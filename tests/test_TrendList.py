@@ -4,6 +4,7 @@
 import statistics
 from collections import deque
 from math import e, pi
+from typing import List
 
 import pytest
 
@@ -42,14 +43,14 @@ def test_init_with_numbers() -> None:
 
 def test_init_with_trends() -> None:
     """Initialize with decreasing trends."""
-    values = list(reversed(pows(3)))
+    values = list(reversed(list(pows(3))))
     list_of_trends = [Trend(value) for value in values]
     assert TrendList(list_of_trends) == TrendList(values)
 
 
 def test_init_with_reverse() -> None:
     """Initialize with decreasing ints."""
-    values = pows(3)  # [1, 2, 4]
+    values = list(pows(3))  # [1, 2, 4]
     rev_values = list(reversed(values))  # [4, 2, 1]
     trends = TrendList(rev_values)  # descending means: [(4,1),(2,1),(1,1)]
     rev_trends = TrendList(values, reverse=True)  # ascending means: [(1,1),(2,1),(4,1)]
@@ -64,12 +65,12 @@ def test_str() -> None:
 
 def test_simple_append() -> None:
     """Append with no merging."""
-    gen = reversed(pows(4))
+    gen = reversed(list(pows(4)))
     start = next(gen)
     trends = TrendList([start])
     for elem in gen:
         trends.append(Trend(elem))
-    assert trends == TrendList(reversed(pows(4)))
+    assert trends == TrendList(reversed(list(pows(4))))
 
 
 def test_fancy_append() -> None:
@@ -115,7 +116,7 @@ def test_noop_rotate() -> None:
 def test_one_rot() -> None:
     """Sequence with one trend takes no rotations."""
     seq_length = 5
-    seq = pows(seq_length) + pows(seq_length - 1)
+    seq = list(pows(seq_length)) + list(pows(seq_length - 1))
     trend = TrendList(seq)
     assert len(trend) == 2
     assert len(trend.rotate()) == 1
@@ -167,7 +168,7 @@ def test_one_rot_single() -> None:
 
 def test_two_rot_single() -> None:
     """Sequence that requires two rotations reports them."""
-    seq = []
+    seq: List[int] = []
     for trend_len in range(6, 1, -1):
         seq += pows(trend_len)  # decreasing means each time, no merge
     trends = TrendList(seq)

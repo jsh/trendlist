@@ -16,22 +16,23 @@ def test_typing() -> None:
 def test_pows_default_base() -> None:
     """Default base is 2."""
     n = 5
-    assert pows(n) == [2**i for i in range(n)]
+    assert list(pows(n)) == [2**i for i in range(n)]
 
 
 def test_pows_base() -> None:
     """Base can be reset."""
     n = 5
-    assert pows(n, base=5) == [5**i for i in range(n)]
+    assert list(pows(n, base=5)) == [5**i for i in range(n)]
 
 
 def test_pows_start() -> None:
     """List rotation successful."""
     n = 10
+    s = list(pows(n))
     for i in range(n + 2):
-        dq = deque(pows(n))
+        dq = deque(s)
         dq.rotate(-i)
-        assert pows(n, start=i) == list(dq)
+        assert list(pows(n, start=i)) == list(dq)
 
 
 def test_rands() -> None:

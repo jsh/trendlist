@@ -162,6 +162,6 @@ def test_print_trends(capsys) -> None:  # TODO: make a decent test here
     print_trends(pows(3))
     captured = capsys.readouterr()
     assert captured.out == "[1.00,2.00,4.00]\n"
-    print_trends(list(reversed(pows(3))))
+    print_trends(reversed(list(pows(3))))
     captured = capsys.readouterr()
     assert captured.out == "[4.00][2.00][1.00]\n"

@@ -4,15 +4,15 @@
 import operator
 import random
 from dataclasses import dataclass
-from typing import Generator, Iterable, List, Optional, Union
+from typing import Generator, Iterable, Optional, Union
 
 # new static types
 Number = Union[float, int]
 Initializer = Union[Number, "Trend"]
 
 
-def pows(n: int, base: int = 2, start: int = 0) -> List[int]:
-    """Return sequence of `n` powers of the base.
+def pows(n: int, base: int = 2, start: int = 0) -> Generator[int, None, None]:
+    """Generate sequence of `n` powers of the base.
 
     `n` specifies how many ints in the returned list
 
@@ -27,15 +27,16 @@ def pows(n: int, base: int = 2, start: int = 0) -> List[int]:
         base: what base to use for the powers
         start: how many positions to rotate the sequence before starting
 
-    Returns:
-        List of [base^0, ..., base^(n-1)]
+    Yields:
+        Powers of base: base^0, ..., base^(n-1)
 
     TODO: I don't think it's worth adding a "reverse" argument. Amiright?
     """
     start = start % n  # in case start >= n
-    left = [base**i for i in range(start, n)]
-    right = [base**i for i in range(start)]
-    return left + right
+    for power in range(start, n):
+        yield base**power
+    for power in range(start):
+        yield base**power
 
 
 def rands(n: int, seed: float = None, start: int = 0) -> Generator[float, None, None]:
