@@ -4,7 +4,8 @@ import random
 from collections import deque
 from typing import Union
 
-from trendlist import Initializer, Number, Rotations, Trend, pows, rands
+from trendlist import Initializer, Number, Rotations, Trend, rands
+from trendlist.simple import pows
 
 
 def test_typing() -> None:

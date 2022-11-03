@@ -1,82 +1,90 @@
 """Unit tests for trendlist.simple module."""
 
 from copy import copy
-from typing import Any, List, Union
+from typing import Any
 
 import pytest
 
-from trendlist import pows
-from trendlist.simple import Number, NumList, print_trends
+from trendlist.simple import (
+    IntList,
+    is_mono_inc,
+    is_mono_inc2,
+    is_trend,
+    pfx_trend,
+    pows,
+    print_trends,
+    trend_list,
+)
 
 SEQ_LEN = 5
 
 
 @pytest.fixture()
-def increasing() -> NumList:
+def increasing() -> IntList:
     """Monotonically increasing sequence."""
-    return NumList(pows(SEQ_LEN))
+    return list(pows(SEQ_LEN))
 
 
 @pytest.fixture()
-def increasing_smaller(increasing) -> NumList:
+def increasing_smaller(increasing) -> IntList:
     """Shorter monotonically increasing sequence."""
     inc = copy(increasing)
     smaller = slice(0, -1)
-    return NumList(inc[smaller])
+    return inc[smaller]
 
 
 @pytest.fixture()
-def increasing_tiny() -> NumList:
+def increasing_tiny() -> IntList:
     """Just two."""
-    return NumList([1, 2])
+    return [1, 2]
 
 
 @pytest.fixture()
-def decreasing(increasing) -> NumList:
+def decreasing(increasing) -> IntList:
     """Monotonically decreasing sequence."""
     decreasing = copy(increasing)
     decreasing.reverse()
-    return NumList(decreasing)
+    return decreasing
 
 
 @pytest.fixture()
-def decreasing_tiny() -> NumList:
+def decreasing_tiny() -> IntList:
     """Just two."""
-    return NumList([2, 1])
+    return [2, 1]
 
 
 @pytest.fixture()
-def rising(increasing) -> NumList:
+def rising(increasing) -> IntList:
     """Rising trend."""
     rising = copy(increasing)
     rising[0], rising[1] = rising[1], rising[0]  # swap first two elements
-    return NumList(rising)
+    return rising
 
 
 @pytest.fixture()
-def falling(increasing) -> NumList:
+def falling(increasing) -> IntList:
     """Falling trend."""
     falling = copy(increasing)
     falling[0], falling[-1] = falling[-1], falling[0]  # swap first and last elements
-    return NumList(falling)
+    return falling
 
 
 @pytest.fixture()
-def level() -> NumList:
+def level() -> IntList:
     """Level list."""
-    return NumList([1 for elem in range(SEQ_LEN)])
+    return [1 for elem in range(SEQ_LEN)]
 
 
 @pytest.fixture()
-def two_trends(increasing, increasing_smaller) -> NumList:
+def two_trends(increasing, increasing_smaller) -> IntList:
     """Sequence with two trends."""
     two_trends = copy(increasing)
     two_trends += copy(increasing_smaller)
-    return NumList(two_trends)
+    return two_trends
 
 
 @pytest.fixture()
-def incs(increasing, increasing_smaller, increasing_tiny) -> List[Any]:
+def incs(increasing, increasing_smaller, increasing_tiny) -> list[Any]:
     """Monotonically increasing lists."""
     return [increasing, increasing_smaller, increasing_tiny]
 
@@ -84,77 +92,70 @@ def incs(increasing, increasing_smaller, increasing_tiny) -> List[Any]:
 @pytest.fixture()
 def not_incs(
     decreasing, decreasing_tiny, rising, falling, level, two_trends
-) -> List[Any]:
+) -> list[Any]:
     """Not monotonically increasing lists."""
     return [decreasing, decreasing_tiny, rising, falling, level, two_trends]
 
 
 @pytest.fixture()
-def trends(increasing, increasing_smaller, increasing_tiny, rising) -> List[Any]:
+def trends(increasing, increasing_smaller, increasing_tiny, rising) -> list[Any]:
     """Rising trends."""
     return [increasing, increasing_smaller, increasing_tiny, rising]
 
 
 @pytest.fixture()
-def not_trends(decreasing, decreasing_tiny, falling, level, two_trends) -> List[Any]:
+def not_trends(decreasing, decreasing_tiny, falling, level, two_trends) -> list[Any]:
     """Not rising trends."""
     return [decreasing, decreasing_tiny, falling, level, two_trends]
 
 
 def test_number_type() -> None:
     """Type Number is defined correctly."""
-    assert Number == Union[int, float]
-
-
-def test_bad_numlist_item() -> None:
-    """Bad NumList item detected."""
-    with pytest.raises(TypeError) as excerr:
-        NumList([1, 2, "a"])
-    assert str(excerr.value) == "Item must be number."
+    assert IntList == list[int]
 
 
 def test_is_mono_inc(incs, not_incs) -> None:
     """is_mono_inc() checks whether a sequence is monotonically increasing."""
     # for inc in increasing, increasing_tiny:
     for inc in incs:
-        assert inc.is_mono_inc()
+        assert is_mono_inc(inc)
     for not_inc in not_incs:
-        assert not not_inc.is_mono_inc()
+        assert not is_mono_inc(not_inc)
 
 
 def test_is_mono_inc2(incs, not_incs) -> None:
     """is_mono_inc2() checks whether a sequence is monotonically increasing."""
     for inc in incs:
-        assert inc.is_mono_inc2()
+        assert is_mono_inc2(inc)
     for not_inc in not_incs:
-        assert not not_inc.is_mono_inc2()
+        assert not is_mono_inc2(not_inc)
 
 
 def test_is_trend(trends, not_trends) -> None:
     """is_trend() checks whether a sequence is a trend."""
     for trend in trends:
-        assert trend.is_trend()
+        assert is_trend(trend)
     for not_trend in not_trends:
-        assert not not_trend.is_trend()
+        assert not is_trend(not_trend)
 
 
 def test_pfx_trend(increasing, rising, two_trends) -> None:
     """pfx_trend() finds the longest prefix trend in a sequence."""
-    assert two_trends.pfx_trend() == increasing
-    assert increasing.pfx_trend() == increasing
-    assert rising.pfx_trend() == rising
+    assert pfx_trend(two_trends) == increasing
+    assert pfx_trend(increasing) == increasing
+    assert pfx_trend(rising) == rising
 
 
 def test_empty_pfx_trend(increasing, rising, two_trends) -> None:
     """Passing an empty list to pfx_trend returns empty list."""
-    assert NumList().pfx_trend() == []
+    assert pfx_trend([]) == []
 
 
 def test_trend_list(two_trends, increasing, increasing_smaller, decreasing) -> None:
     """trend_list() decomposes a sequence into a list of trends."""
-    assert two_trends.trend_list() == [increasing, increasing_smaller]
-    assert decreasing.trend_list() == [[elem] for elem in decreasing]
-    assert increasing.trend_list() == [increasing]
+    assert trend_list(two_trends) == [increasing, increasing_smaller]
+    assert trend_list(decreasing) == [[elem] for elem in decreasing]
+    assert trend_list(increasing) == [increasing]
 
 
 def test_print_trends(capsys) -> None:  # TODO: make a decent test here
@@ -162,6 +163,6 @@ def test_print_trends(capsys) -> None:  # TODO: make a decent test here
     print_trends(pows(3))
     captured = capsys.readouterr()
     assert captured.out == "[1.00,2.00,4.00]\n"
-    print_trends(reversed(list(pows(3))))
+    print_trends(list(reversed(list(pows(3)))))
     captured = capsys.readouterr()
     assert captured.out == "[4.00][2.00][1.00]\n"

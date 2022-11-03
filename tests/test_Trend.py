@@ -2,7 +2,6 @@
 
 from math import e  # Euler's constant
 from operator import ge, gt, le, lt
-from typing import List
 
 import pytest
 
@@ -13,7 +12,7 @@ TREND_STR = f"({VAL:.2f},1)"
 
 
 @pytest.fixture(scope="module")
-def test_trends() -> List:
+def test_trends() -> list:
     """Defind a standard list of test Trendlist.
 
     Used throughout test suite.
@@ -26,7 +25,7 @@ def test_trends() -> List:
     ]
 
 
-def test_init(test_trends: List[Trend]) -> None:
+def test_init(test_trends: list[Trend]) -> None:
     """Test __init__()."""
     trend = test_trends[0]
     assert isinstance(trend, Trend)
@@ -42,25 +41,25 @@ def test_trend_default() -> None:
         trend = Trend(length=1)
 
 
-def test_repr(test_trends: List[Trend]) -> None:
+def test_repr(test_trends: list[Trend]) -> None:
     """Test __repr__()."""
     assert repr(test_trends[0]) == "Trend(mean=2.718281828459045, length=1)"
     assert repr(test_trends[0]) == f"Trend(mean={e}, length=1)"
 
 
-def test_str(test_trends: List[Trend]) -> None:
+def test_str(test_trends: list[Trend]) -> None:
     """Test __str__()."""
     assert f"{test_trends[0]}" == TREND_STR
     assert str(test_trends[0]) == TREND_STR
 
 
-def test_eq(test_trends: List[Trend]) -> None:
+def test_eq(test_trends: list[Trend]) -> None:
     """Test __eq__()."""
     assert test_trends[0] == test_trends[1]
     assert test_trends[1] != test_trends[2]
 
 
-def test_lt(test_trends: List[Trend]) -> None:
+def test_lt(test_trends: list[Trend]) -> None:
     """Test dunder inequality functions."""
     assert test_trends[0] < test_trends[2]
     assert test_trends[2] > test_trends[0]
@@ -72,14 +71,14 @@ def test_lt(test_trends: List[Trend]) -> None:
     assert test_trends[2] >= test_trends[1]  # >
 
 
-def test_bad_merge(test_trends: List[Trend]) -> None:
+def test_bad_merge(test_trends: list[Trend]) -> None:
     """Test merge."""
     with pytest.raises(ValueError, match="merging trend mean must differ!") as excerr:
         test_trends[0].merge(test_trends[1])
     assert "merging trend mean must differ!" == str(excerr.value)
 
 
-def test_merge(test_trends: List[Trend]) -> None:
+def test_merge(test_trends: list[Trend]) -> None:
     """Test merge."""
     merged_trend = test_trends[1].merge(test_trends[2])
     assert merged_trend == test_trends[3]

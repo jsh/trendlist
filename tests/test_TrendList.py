@@ -8,7 +8,8 @@ from typing import List
 
 import pytest
 
-from trendlist import Rotations, Trend, TrendList, pows, rands
+from trendlist import Rotations, Trend, TrendList, rands
+from trendlist.simple import pows
 
 # N.B.,
 #    Decomposing a sequence into a list of maximal upwards trends
