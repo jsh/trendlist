@@ -1,0 +1,13 @@
+language: python
+python:
+  - "3.9"
+  - "nightly"
+# command to install dependencies
+before-install:
+  - pip install --upgrade pip
+  - pip install poetry
+install:
+  - poetry install
+# command to run tests
+script:
+  - pytest
