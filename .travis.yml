@@ -9,4 +9,10 @@ install:
   - poetry install
 # command to run tests
 script:
-  - pytest
+  - pytest --random-order --cov-fail-under=100
+  - mutmut run --simple-output
+  - flake8 .
+  - bandit -c pyproject.toml -r -q .
+  - safety check
+  - mypy -p src
+  - mypy -p tests

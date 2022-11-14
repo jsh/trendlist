@@ -12,5 +12,5 @@ mypy -p src
 mypy -p tests
 
 # tests
-pytest --cov -q --no-summary
+pytest --cov-fail-under=100 --random-order -q --no-summary
 mutmut run --simple-output | tail -1
