@@ -9,7 +9,8 @@ install:
   - poetry install
 # command to run tests
 script:
-  - pytest --random-order --cov-fail-under=100
+  - coverage run --source=src -m pytest tests/
+  - coveralls
   - mutmut run --simple-output
   - flake8 .
   - bandit -c pyproject.toml -r -q .
