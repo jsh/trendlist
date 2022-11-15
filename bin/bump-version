@@ -1,2 +1,9 @@
-vi ./pyproject.toml ./tests/test_package.py ./docs/source/conf.py ./src/trendlist/__init__.py &&
-	git tag $(poetry version -s)
+#!/bin/bash -eu
+
+export new_version=${1:?"usage: $0 new_version"}
+export old_version=$(poetry version -s)
+echo "old_version=$old_version, new_version=$new_version"
+
+perl -i -pe 's/"$ENV{old_version}"/"$ENV{new_version}"/ if /version|release/' ./pyproject.toml ./tests/test_package.py ./docs/source/conf.py ./src/trendlist/__init__.py
+git commit -am"Bump version from $old_version to $new_version"
+git tag $version
