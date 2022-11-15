@@ -1,1 +1,2 @@
-vi ./pyproject.toml ./tests/test_package.py ./docs/source/conf.py ./src/trendlist/__init__.py
+vi ./pyproject.toml ./tests/test_package.py ./docs/source/conf.py ./src/trendlist/__init__.py &&
+	git tag $(poetry version -s)
