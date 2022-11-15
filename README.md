@@ -1,4 +1,5 @@
 [![Build Status](https://app.travis-ci.com/jsh/trendlist.svg?branch=master)](https://app.travis-ci.com/jsh/trendlist)
+[![Documentation Status](https://readthedocs.org/projects/trendlist/badge/?version=latest)](https://trendlist.readthedocs.io/en/latest/?badge=latest)
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jsh/trendlist-notebooks/master)
 [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-908a85?logo=gitpod)](https://gitpod.io/#https://github.com/jsh/trendlist)
 
@@ -12,10 +13,10 @@ It builds the *trendlist* package, which includes the submodule *trendlist.simpl
 
 ## What are Trends?
 
-### Background: Monotonic Sequences Are Well-Defined and Rare.
+### Background: Sorted Sequences Are Well-Defined and Rare.
 
 If you sort a set of numbers, every element is greater than its neighbor to the left.
-A math geek would call such a sequence, *monotonically increasing*.
+A math geek would call such a sequence *monotonically increasing*.
 Monotonic can mean any of these.
 
 Some examples:
@@ -25,14 +26,15 @@ Some examples:
 * monotonically non-decreasing: 1, 1, 2, 3, 5, 8, ...
 * monotonically non-increasing: 1, 1, 1/2, 1/3, 1/5, 1/8, ...
 
-For simplicity, let's focus on the sorted (monotonically increasing) sequences, understanding that we can go back and reason analogously about the other three types.
+For simplicity, let's focus on the monotonically increasing sequences,
+understanding that we can go back and reason analogously about the other three types.
 
 Few real-world sequences are sorted, but lots get generally bigger from one end to the other.
 
-Can we relax monotonicity in an interesting way to let us include those, too?
+Can we relax sorting in an interesting way to let us include those, too?
 Let's give it a shot.
 
-### Trends Are a Generalization of Monotonic Sequences.
+### Trends Are a Generalization of Sorted Sequences.
 
 Let's start with a different, but equivalent definition of sorted.
 
