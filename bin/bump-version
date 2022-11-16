@@ -7,4 +7,5 @@ echo "old_version=$old_version, new_version=$new_version"
 perl -i -pe 's/"$ENV{old_version}"/"$ENV{new_version}"/ if /version|release/' ./pyproject.toml ./tests/test_package.py ./docs/source/conf.py ./src/trendlist/__init__.py
 git commit -am"Bump version from $old_version to $new_version"
 git tag $new_version
+git push --tags
 poetry publish --build --repository pypi
