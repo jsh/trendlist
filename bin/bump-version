@@ -8,4 +8,4 @@ perl -i -pe 's/"$ENV{old_version}"/"$ENV{new_version}"/ if /version|release/' ./
 git commit -am"Bump version from $old_version to $new_version"
 git tag $new_version
 git push --tags
-poetry publish --build --repository pypi
+# poetry publish --build --repository pypi
