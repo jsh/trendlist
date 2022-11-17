@@ -15,10 +15,13 @@ script:
 - safety check
 - mypy -p src
 - mypy -p tests
+before-deploy:
+- poetry build
 deploy:
   provider: pypi
   username: "__token__"
   password:
     secure: m62rYu6sRA5snwT1r5SWdY1yHbz8mNEALX7Ps0+mZI3Os2K5XJAw7coc+tjo+4IjMDnxPi4/Vj30JmEYO8JlAqQ53TR1pJjuZERBwCX5lhiWJ1gySUTPITCuh+uz67jsrW4pj3xcppGfYo7g6FnSnjJGcDpfm68lh00yU/rK6HJs9K9rSIT75RvgeTMtDgNnK6b0dAFsHMnqn78pkMpIeWl8hqslnCcd+TZX4kGPL1dF+0KaUHLAmpe2zW1A8RxEPilw96YZBe5T6sPZ2b3+mGtm/GZGbFw0TlNax8arEaO9RxvpOVArBf8N5iZAlbi4HIAEqW3SB1BiRGUMhjv4d1yCBLtZmjFSQ/VS+LNjGne07ZubjE2kZ0433QVQrr+j25csj6twBEBdAntvu62T8zdIPdq/D/90WLQl7hLcdANhbO5aSxAHcOrE4dqu1MaMyGplJC0Jx0cUjsyGVg3lMliRqDxlqFhKraoENaeN/3qtZ1YOIOdeWuIGYe0TDsjOWpDZCknDo5FULJIQ/Yc7yXLgWhOo0JacYMujF4hjF6hHpSaradHm0V39VXc3TrQ1k9QvdUaZH3C59iYPniCjdYut+VpX+Aic02H5S64kVnJH/oVEqj4+W9ncSp7ztPfwh7mKRe29q1VvMKPrNcsvcxMv+J2XNxgRaMmY7MMw/BI=
+  skip_cleanup: true
   on:
     tags: true
