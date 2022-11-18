@@ -93,7 +93,7 @@ would be a useful upgrade.**
 If you're a mathematician, you can say things like, *"The probability that two random reals, independently chosen on a finite interval, are equal has Lebesgue measure zero."*
 with a straight face.
 
-If you had a true random number generator, and generated a snotload of random reals, no two would ever be the same.
+This means, "If you had a true random number generator, and generated a snotload of random reals, no two would ever be exactly the same."
 
 In Python, `random()` returns floats in `[0, 1)` that are random enough, and have enough digits,
 that this package treats them like reals and pretends it'll never throw out duplicates.
