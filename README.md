@@ -21,28 +21,30 @@ It builds the *trendlist* package, which includes the submodule *trendlist.simpl
 
 ### Background: Sorted Sequences Are Well-Defined and Rare.
 
-If you sort a set of numbers, every element is greater than its neighbor to the left.
+If you sort a set of numbers, by default every element is greater than its neighbor to the left.
 A math geek would call such a sequence *monotonically increasing*.
-Monotonic can mean any of these.
 
-Some examples:
+Monotonic is a bigger category, and can mean any of these:
 
 * monotonically increasing: 1, 2, 4, 8, 16, ...
 * monotonically decreasing: -1, -3, -9, -27, ...
 * monotonically non-decreasing: 1, 1, 2, 3, 5, 8, ...
 * monotonically non-increasing: 1, 1, 1/2, 1/3, 1/5, 1/8, ...
 
-For simplicity, let's focus on the monotonically increasing sequences,
+For simplicity, let's focus on the first of these four,
 understanding that we can go back and reason analogously about the other three types.
+
+In general, we'll be thinking about sequences without repeats, and just use "sorted" and "monotonically increasing"
+interchangeably. (We'll return to avoiding repeats in a minute. Bear with us.)
 
 Few real-world sequences are sorted, but lots get generally bigger from one end to the other.
 
-Can we relax sorting in an interesting way to let us include those, too?
+Can we relax sorting in an interesting way?
 Let's give it a shot.
 
 ### Trends Are a Generalization of Sorted Sequences.
 
-Let's start with a different, but equivalent definition of sorted.
+Start with a different but equivalent definition of sorted.
 
 With a sorted sequence, if you put your finger between any two sequence elements, everything to the left of your finger is less than everything to the right.
 
@@ -51,19 +53,21 @@ the *average* of everything to the left of your finger is less than the *average
 
 Let's call that a *trend*.
 
-Trends are a superset:
+Trends are a superset of sorted sequences:
 that is, a sorted sequence is a trend
 but a trend doesn't have to be sorted.
 
+Though not everything is a trend, trends are far more common than sorted sequences.
+
 For example, `1, 2, 4, 8, 16` is both sorted and a trend,
 but `2, 1, 4, 8, 16` is not sorted, yet it is a trend.
+
 * `mean(2) = 2 < mean(1, 4, 8) = 13/3`
 * `mean(2, 1) = 3/2 < mean(4, 8) = 6`
 * `mean(2, 1, 4) = 7/3 < mean(8) = 8`
 
-So are `4, 1, 2, 8, 16` and fourteen other permutations of the set `{1, 2, 4, 8, 16}`
+So are `4, 1, 2, 8, 16` and twenty-one other permutations of the set `{1, 2, 4, 8, 16}`
 
-Though not everything is a trend, trends are far more common than monotonically increasing sequences.
 
 They're also interesting.
 
@@ -76,8 +80,8 @@ For defining trends, any average will work that satisfies one condition:
 if `S1` and `S2` are sequences, and `Average(S1) < Average(S2)`, then
 `Average(S1) < Average(S1 + S2) < Average(S2)`.
 
-Geometric and harmonic means both satisfy this condition, too, as so some other even-more-obscure measures of central tendency,
-but right now, the package hard-wires "average" to "arithmetic mean."
+Geometric and harmonic means both satisfy this condition, as do some other even-more-obscure measures of central tendency,
+but right now, the `trendlist` package hard-wires "average" to "arithmetic mean."
 
 **TODO: Enhancing *trendlist*,
 so you can specify the average to use in a config file,
@@ -89,7 +93,7 @@ would be a useful upgrade.**
 If you're a mathematician, you can say things like, *"The probability that two random reals, independently chosen on a finite interval, are equal has Lebesgue measure zero."*
 with a straight face.
 
-This means that if you had a true random number generator, and generated a snotload of random floats, no two would ever be the same.
+This means, "If you had a true random number generator, and generated a snotload of random reals, no two would ever be exactly the same."
 
 In Python, `random()` returns floats in `[0, 1)` that are random enough, and have enough digits,
 that this package treats them like reals and pretends it'll never throw out duplicates.
@@ -120,8 +124,8 @@ Again, a proof would be nice.**
 ### We Build Classes to Represent Trends and TrendLists
 
 The submodule *trendlist.simple* represents trends as lists, and lists of trends as lists of lists.
-This is a simple, and instructive way to play with trends and trendlists, but it's a pig.
-It's not worth waiting for the module to turn a sequences of a thousand random floats into a trendlist.
+This is a simple, and instructive way to play with trends and trend-lists, but it's a pig.
+It's not worth waiting for the module to decompose a sequence of a thousand random floats into a list of trends.
 
 Instead, the *trendlist* module supplies a second, more efficient approach for bigger problems, built on a simple observation:
 when you tack two trends together, their combined average is a weighted average of the pair.
@@ -134,10 +138,10 @@ will combine to form a single, rising trend of length `8`
 and mean `(6*4.0 + 2*8.0)/8 = 40.0/8 = 5`.
 
 Almost no operations with trends require storing
-the actual, `s_i` values that make up the trend;
+the actual sequence elements that make up the trend;
 it's enough to keep track of the trend mean and trend length.
-The `trendlist` package defines the objects of `class Trend`, which only stores these two values.
-a second class, `TrendList`, a subclass of `List`, represents lists of `Trend` objects.
+The `trendlist` package defines `class Trend`, instances of which only store these two values.
+A second class, `TrendList`, represents lists of `Trend` objects, subclassing `List`.
 
 Simplifying in this way gives us back reasonable performance.
 You can use these abstractions turn a sequence of a million random floats into a TrendList in a second or two.
@@ -150,7 +154,7 @@ It's pretty obvious that any sequence breaks cleanly and uniquely into maximum-l
 
 * `[2, 7, 1, 8, 2, 8, 1, 8, 2, 8, 4, 5, 9, 0, 4, 5]` -> `[[2, 7], [1, 8], [2, 8], [1, 8], [2, 8], [4, 5, 9], [0, 4, 5]]`
 
-We're letting single numbers be monotonic sequences, where needed, and we're excluding sequences with adjacent, repeating numbers, like `[1, 1, 2, 3, 5, 8, 13]`
+We're letting single numbers be monotonic sequences, where needed. Here again, we won't deal with adjacent, repeating numbers, like `[1, 1, 2, 3, 5, 8, 13]`
 
 The monotonic subsequences are called "ascents," and were studied in depth by Euler who probably called them something else because he was German and wrote in Latin.
 
@@ -158,7 +162,7 @@ Notice a couple of things:
 
 * The last number of an ascent is always greater than the first number of the next,
 
-* Out of the `N!` permutations of a set of N numbers, only one -- the list after sorting -- is monotonically increasing.
+* Out of the `N!` permutations of a set of N numbers, only one -- the list after sorting -- is a single ascent.
 
 Pleasantly, every sequence also breaks cleanly and uniquely into maximum-length trends.
 
@@ -168,7 +172,7 @@ Pleasantly, every sequence also breaks cleanly and uniquely into maximum-length 
 
 Spoiler alert:
 
-- The means of the trends decrease monotonically. Every trend's mean is greater than the one to its right.
+- The means of the trends decrease monotonically. Every trend's mean is greater than the mean of the trend to its right. They're sorted in reverse order.
 
 - Out of the `N!` permutations of a set of `N` numbers, `(N-1)!` are single trends.
 In fact, every sequence has exactly one circular permutation that's a single, increasing trend.
@@ -178,12 +182,12 @@ are proved in Ehrenfeucht, *et al. (vide infra)*.
 
 ### A Sketch of the Development Environment
 
-I use `poetry` for environment and dependency management.
-The file `pyproject.toml` contains specifications.
+This project uses `poetry` for environment and dependency management.
+The file `pyproject.toml` contains versions for the packages it imports or uses in development.
 
 The code is linted with `isort` `black`, `flake8`, `mypy`, `bandit`, and `safety`, and tested with `pytest`. 
-The test suite provides 100% code coverage, and is tested with `mutmut`.
-Configuration, settings, and plugins for tools are defined in `pyproject.toml`.
+The test suite provides 100% code coverage, and is, itself, mutation tested with `mutmut`.
+Besides versions, the configuration, settings, and plugins for tools are defined in `pyproject.toml`.
 
 The tools themselves are documented at <https://readthedocs.io> under *toolname*.readthedocs.io ,
 except `safety`, which is documented at <https://pyup.io/safety>
