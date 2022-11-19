@@ -357,18 +357,18 @@ python-versions = ">=3.6,<4.0"
 
 [[package]]
 name = "flake8-pyproject"
-version = "1.1.0.post0"
+version = "1.2.0"
 description = "Flake8 plug-in loading the configuration from pyproject.toml"
 category = "dev"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">= 3.6"
 
 [package.dependencies]
 Flake8 = ">=5,<6"
 TOMLi = {version = "*", markers = "python_version < \"3.11\""}
 
 [package.extras]
-test = ["pytest", "pytest-cov"]
+dev = ["pytest", "pytest-cov"]
 
 [[package]]
 name = "flake8-pytest-style"
@@ -1275,7 +1275,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "flake8 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "72d1ff63778e69b6dcfcf0eb726f3584b53655fe2fa8a4a8e2d86df16fdbb6bb"
+content-hash = "cda1538f5f3c52773464a3156527c39f74f0bf6ae4216ac35f236057a89bdab9"
 
 [metadata.files]
 alabaster = []
