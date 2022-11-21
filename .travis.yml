@@ -12,7 +12,6 @@ script:
 - mutmut run --simple-output
 - flake8 .
 - bandit -c pyproject.toml -r -q .
-- safety check
 - mypy -p src
 - mypy -p tests
 before-deploy:
