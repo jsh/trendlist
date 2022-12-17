@@ -51,7 +51,8 @@ With a sorted sequence, if you put your finger between any two sequence elements
 Suppose, instead, when put your finger between any two sequence elements,
 the *average* of everything to the left of your finger is less than the *average* of everything to the right.
 
-Let's call that a *trend*.
+A mathematician would call that a *quasi-monotonically increasing sequence*.
+Which is why we'll call it a *trend*.
 
 Trends are a superset of sorted sequences:
 that is, a sorted sequence is a trend
@@ -201,6 +202,8 @@ In addition to this README, the *trendlist* package is documented at [`readthedo
 
 There is [a repository of jupyter-notebook tutorials](https://github.com/jsh/trendlist-notebooks),
 which you can clone yourself or bring up in [a binder container](https://mybinder.org/v2/gh/jsh/trendlist-notebooks.git/HEAD) either through the link here, or by clicking on the `binder` badge in the GitHub repository.
+
+There are even [slides for a talk.](https://docs.google.com/presentation/d/1VAroX0kamfHWKFJHpvJrCJiZIOeOytO47s1XlfDryvE/edit#slide=id.p)
 
 
 ## Reference
