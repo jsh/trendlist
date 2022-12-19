@@ -1,6 +1,7 @@
 language: python
+dist: bionic
 python:
-- '3.9'
+- '3.10.8'
 before-install:
 - pip install --upgrade pip
 - pip install poetry
