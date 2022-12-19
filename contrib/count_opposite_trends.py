@@ -42,7 +42,7 @@ def trend_counts(trendlists):
     Include 0 at the beginning to say that no permutation has *no* trends.
     Besides, Python programmers like the first array index to be 0, not 1.
     """
-    s = trendlists[0] # arbitrarily pick the first trendlist.
+    s = trendlists[0]  # arbitrarily pick the first trendlist.
     n_bins = sum([len(elem) for elem in s])
     bins = [0] * (n_bins + 1)
     for ntrends, count in Counter(count_trends(trendlists)).items():
@@ -65,12 +65,14 @@ def single_trends(trendlists):
             singles.append(trendlist[0])
     return singles
 
+
 def summary(counts):
     tot = sum(counts)
     weighted_tot = 0
     for num, count in enumerate(counts):
-        weighted_tot += num*count
-    return (tot, weighted_tot/tot)
+        weighted_tot += num * count
+    return (tot, weighted_tot / tot)
+
 
 def number_of_trends(length, mode, base=2):
     """Report trends in sequences of given length.

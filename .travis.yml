@@ -10,7 +10,7 @@ script:
 - coverage run --source=src -m pytest tests/
 - coveralls
 - mutmut run --simple-output
-- flake8 .
+- flake8 src tests
 - bandit -c pyproject.toml -r -q .
 - mypy -p src
 - mypy -p tests
