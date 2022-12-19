@@ -15,6 +15,7 @@ script:
 - bandit -c pyproject.toml -r -q .
 - mypy -p src
 - mypy -p tests
+- safety check | grep Scan was completed
 before-deploy:
 - poetry build
 deploy:
