@@ -10,7 +10,7 @@ from sympy.functions.combinatorial.numbers import (
 )
 
 from trendlist import rands
-from trendlist.simple import is_trend, pows, trend_list
+from trendlist.simple import pows, trend_list
 
 
 def perms(s):
@@ -23,30 +23,31 @@ def perms(s):
     return _perms
 
 
-def all_trend_lists(seq, verbose=False):
+def all_trendlists(seq, verbose=False):
     """Decompose *every* permutation of seq into trends."""
     return [trend_list(perm) for perm in perms(seq)]
 
 
-def count_trends(list_of_trendlists, verbose=False):
+def count_trends(trendlists, verbose=False):
     """Count the # of trends in each trendlist."""
     if verbose:
-        for trendlist in list_of_trendlists:
+        for trendlist in trendlists:
             print(f"{trendlist=} has {len(trendlist)} trend(s)")
-    return [len(trendlist) for trendlist in list_of_trendlists]
+    return [len(trendlist) for trendlist in trendlists]
 
 
-def n_trends(s):
-    """Show how many permutations of s have exactly k trends.
+def trend_counts(trendlists):
+    """Report how many permutations in trendlists have exactly k trends.
 
     Include 0 at the beginning to say that no permutation has *no* trends.
     Besides, Python programmers like the first array index to be 0, not 1.
     """
-    s = list(s)
-    counts = [0] * (len(s) + 1)
-    for ntrends, count in Counter(count_trends(all_trend_lists(s))).items():
-        counts[ntrends] = count
-    return counts
+    s = trendlists[0] # arbitrarily pick the first trendlist.
+    n_bins = sum([len(elem) for elem in s])
+    bins = [0] * (n_bins + 1)
+    for ntrends, count in Counter(count_trends(trendlists)).items():
+        bins[ntrends] = count
+    return bins
 
 
 def stirlings(n):
@@ -57,7 +58,21 @@ def stirlings(n):
     return row
 
 
-def number_of_trends(length, mode):
+def single_trends(trendlists):
+    singles = []
+    for trendlist in trendlists:
+        if len(trendlist) == 1:
+            singles.append(trendlist[0])
+    return singles
+
+def summary(counts):
+    tot = sum(counts)
+    weighted_tot = 0
+    for num, count in enumerate(counts):
+        weighted_tot += num*count
+    return (tot, weighted_tot/tot)
+
+def number_of_trends(length, mode, base=2):
     """Report trends in sequences of given length.
 
     Three modes: 'stirling', 'random', and 'powers'.
@@ -65,19 +80,24 @@ def number_of_trends(length, mode):
     if mode == "stirling":
         return stirlings(length)
     elif mode == "random":
-        return n_trends(rands(length))
+        seq = rands(length)
     elif mode == "powers":
-        return n_trends(pows(length))
+        seq = pows(length, base)
     else:
         return f"unknown mode '{mode}'"
-
-def all_single_trends(seq):
-    singles = []
-    for trendlist in all_trend_lists(seq):
-        if len(trendlist) == 1:
-            singles.append(trendlist[0])
-    return singles
+    # generate the trendlists
+    trendlists = all_trendlists(seq)
+    # pick out single trends
+    singles = single_trends(trendlists)
+    # reverse them, decompose, collect the decompositions
+    opposites = []
+    for single in singles:
+        single.reverse()
+        opposites.append(trend_list(single))
+    # report their sizes
+    print(trend_counts(opposites))
+    return summary(trend_counts(opposites))
 
 
 if __name__ == "__main__":
-    fire.Fire(all_single_trends)
+    fire.Fire(number_of_trends)

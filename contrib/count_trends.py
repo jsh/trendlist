@@ -23,30 +23,31 @@ def perms(s):
     return _perms
 
 
-def all_trend_lists(seq, verbose=False):
+def all_trendlists(seq, verbose=False):
     """Decompose *every* permutation of seq into trends."""
     return [trend_list(perm) for perm in perms(seq)]
 
 
-def count_trends(list_of_trendlists, verbose=False):
+def count_trends(trendlists, verbose=False):
     """Count the # of trends in each trendlist."""
     if verbose:
-        for trendlist in list_of_trendlists:
+        for trendlist in trendlists:
             print(f"{trendlist=} has {len(trendlist)} trend(s)")
-    return [len(trendlist) for trendlist in list_of_trendlists]
+    return [len(trendlist) for trendlist in trendlists]
 
 
-def n_trends(s):
-    """Show how many permutations of s have exactly k trends.
+def trend_counts(trendlists):
+    """Report how many permutations in trendlists have exactly k trends.
 
     Include 0 at the beginning to say that no permutation has *no* trends.
     Besides, Python programmers like the first array index to be 0, not 1.
     """
-    s = list(s)
-    counts = [0] * (len(s) + 1)
-    for ntrends, count in Counter(count_trends(all_trend_lists(s))).items():
-        counts[ntrends] = count
-    return counts
+    s = trendlists[0] # arbitrarily pick the first trendlist.
+    n_bins = sum([len(elem) for elem in s])
+    bins = [0] * (n_bins + 1)
+    for ntrends, count in Counter(count_trends(trendlists)).items():
+        bins[ntrends] = count
+    return bins
 
 
 def stirlings(n):
@@ -65,11 +66,15 @@ def number_of_trends(length, mode):
     if mode == "stirling":
         return stirlings(length)
     elif mode == "random":
-        return n_trends(rands(length))
+        seq = rands(length)
     elif mode == "powers":
-        return n_trends(pows(length))
+        seq = pows(length)
     else:
         return f"unknown mode '{mode}'"
+    # generate the trendlists
+    trendlists = all_trendlists(seq)
+    # report their sizes
+    return trend_counts(trendlists)
 
 
 if __name__ == "__main__":
