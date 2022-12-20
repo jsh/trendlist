@@ -58,23 +58,53 @@ def stirlings(n):
     return row
 
 
-def number_of_trends(length, mode):
+def single_trends(trendlists):
+    singles = []
+    for trendlist in trendlists:
+        if len(trendlist) == 1:
+            singles.append(trendlist[0])
+    return singles
+
+
+def summary(counts):
+    tot = sum(counts)
+    weighted_tot = 0
+    for num, count in enumerate(counts):
+        weighted_tot += num * count
+    return (tot, weighted_tot / tot)
+
+
+def uphills(trendlists):
+    # pick out single trends
+    singles = single_trends(trendlists)
+    # reverse them, decompose, collect the decompositions
+    _uphills = []
+    for single in singles:
+        single.reverse()
+        uphill = trend_list(single)
+        _uphills.append(uphill)
+    return _uphills
+
+
+def number_of_trends(length, mode, base=2, reverse=False):
     """Report trends in sequences of given length.
 
     Three modes: 'stirling', 'random', and 'powers'.
     """
     if mode == "stirling":
-        return stirlings(length)
+        return str(stirlings(length))
     elif mode == "random":
         seq = rands(length)
     elif mode == "powers":
-        seq = pows(length)
+        seq = pows(length, base)
     else:
         return f"unknown mode '{mode}'"
     # generate the trendlists
     trendlists = all_trendlists(seq)
+    if reverse:
+        trendlists = uphills(trendlists)
     # report their sizes
-    return trend_counts(trendlists)
+    return str(trend_counts(trendlists))
 
 
 if __name__ == "__main__":
