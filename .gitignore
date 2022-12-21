@@ -9,3 +9,4 @@ __pycache__
 # generated documentation
 docs/build
 _autosummary
+travis-secret-token
