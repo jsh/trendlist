@@ -1,5 +1,6 @@
 # deliberately ignored
 *.ign
+dist
 # vi swap files
 *.swp
 # hidden files
