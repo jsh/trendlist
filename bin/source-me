@@ -1,2 +1,1 @@
-top_level=$(git rev-parse --show-toplevel)
-PATH+=:$top_level/bin:$top_level/contrib
+PATH+=:$PWD/bin
