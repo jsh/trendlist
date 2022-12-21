@@ -1,6 +1,7 @@
 # deliberately ignored
 *.ign
 dist
+travis-secret-token
 # vi swap files
 *.swp
 # hidden files
@@ -8,6 +9,5 @@ dist
 # compiled python
 __pycache__
 # generated documentation
-docs/build
 _autosummary
-travis-secret-token
+docs/build
