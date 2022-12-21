@@ -5,9 +5,9 @@ isort .
 black .
 
 # misc "best practices" checks
-flake8 .
+flake8 src tests
 bandit -c pyproject.toml -r -q .
-safety check | grep vulnerabilities
+safety check -i 51549 | grep "Scan was completed"
 mypy -p src
 mypy -p tests
 
