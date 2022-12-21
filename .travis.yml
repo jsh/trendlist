@@ -1,5 +1,5 @@
 language: python
-dist: jammy
+dist: bionic
 python:
 - '3.10.8'
 before-install:
