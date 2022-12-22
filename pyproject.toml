@@ -33,7 +33,7 @@ ignore_missing_imports = true
 
 [tool.poetry]
 name = "trendlist"
-version = "0.3.6"
+version = "--help"
 description = "Define, manipulate and study lists of Trends."
 authors = ["Jeffrey S. Haemer <jeffrey.haemer@gmail.com>"]
 

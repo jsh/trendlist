@@ -1,4 +1,4 @@
 """Import all functions from trendlist module into package."""
-__version__ = "0.3.6"
+__version__ = "--help"
 
 from .trendlist import *  # noqa
