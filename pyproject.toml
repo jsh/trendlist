@@ -33,17 +33,18 @@ ignore_missing_imports = true
 
 [tool.poetry]
 name = "trendlist"
-version = "0.3.6"
+version = "0.3.7"
 description = "Define, manipulate and study lists of Trends."
 authors = ["Jeffrey S. Haemer <jeffrey.haemer@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.10.8"
+python = "^3.10"
 blessed = "^1.19.1"
 myst-parser = "^0.18.1"
 sphinx = "^4.3.0"
 sphinx-autobuild = "^2021.3.14"
 sphinx-rtd-theme = "^1.0.0"
+# wheel = "^0.38.1"
 
 [tool.poetry.dev-dependencies]
 bandit = "^1.7.4"
@@ -69,7 +70,6 @@ pytest = "^7.2.0"
 pytest-cov = "^4.0.0"
 pytest-random-order = "^1.0.4"
 safety = "^2.3.1"
-# wheel = "^0.38.4"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
