@@ -59,6 +59,7 @@ def stirlings(n):
 
 
 def single_trends(trendlists):
+    """Return all single trends in trendlists."""
     singles = []
     for trendlist in trendlists:
         if len(trendlist) == 1:
@@ -67,6 +68,7 @@ def single_trends(trendlists):
 
 
 def summary(counts):
+    """Return the total and the weighted total of a list."""
     tot = sum(counts)
     weighted_tot = 0
     for num, count in enumerate(counts):
@@ -75,6 +77,7 @@ def summary(counts):
 
 
 def uphills(trendlists):
+    """Decompose single trends into uphill trends."""
     # pick out single trends
     singles = single_trends(trendlists)
     # reverse them, decompose, collect the decompositions
