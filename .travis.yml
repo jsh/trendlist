@@ -15,7 +15,7 @@ script:
 - bandit -c pyproject.toml -r -q .
 - mypy -p src
 - mypy -p tests
-- safety check -i 51457
+- safety check --ignore 51457 --ignore 51549
 before-deploy:
 - poetry build
 deploy:
