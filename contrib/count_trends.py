@@ -23,7 +23,7 @@ def perms(s):
     return _perms
 
 
-def all_trendlists(seq, verbose=False):
+def all_trendlists(seq):
     """Decompose *every* permutation of seq into trends."""
     return [trend_list(perm) for perm in perms(seq)]
 
@@ -67,8 +67,8 @@ def single_trends(trendlists):
     return singles
 
 
-def summary(counts):
-    """Return the total and the weighted total of a list."""
+def sum_and_weighted_mean(counts):
+    """Return the total and the weighted mean of a list."""
     tot = sum(counts)
     weighted_tot = 0
     for num, count in enumerate(counts):
