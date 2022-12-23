@@ -30,6 +30,15 @@ show_error_codes = true
 [[tool.mypy.overrides]]
 module = "py"
 ignore_missing_imports = true
+# section for all the odd stuff in contrib
+[[tool.mypy.overrides]]
+module = [
+	"fire",
+	"matplotlib",
+	"matplotlib.pyplot",
+	"count_trends",
+]
+ignore_missing_imports = true
 
 [tool.poetry]
 name = "trendlist"
