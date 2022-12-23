@@ -142,14 +142,3 @@ def test_uphills():
     assert uphills([[[2, 1, 4, 8]]]) == [[[8], [4], [1, 2]]]
     assert uphills([[[2, 1, 8, 4]]]) == [[[4, 8], [1, 2]]]
     assert uphills([[[2, 4, 1, 8]]]) == [[[8], [1, 4], [2]]]
-
-
-test_perms()
-test_all_trendlists()
-test_count_trends()
-test_trend_counts
-test_stirlings()
-test_single_trends()
-
-
-print("All tests passed!")
