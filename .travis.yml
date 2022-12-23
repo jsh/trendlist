@@ -10,7 +10,7 @@ install:
 script:
 - coverage run --source=src -m pytest tests/
 - coveralls
-- mutmut run --simple-output
+# - mutmut run --simple-output
 - flake8 src tests
 - (cd contrib; flake8 .)
 - bandit -c pyproject.toml -r -q .

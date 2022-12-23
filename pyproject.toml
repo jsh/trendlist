@@ -37,6 +37,7 @@ module = [
 	"matplotlib",
 	"matplotlib.pyplot",
 	"count_trends",
+	"sympy.functions.combinatorial.numbers",
 ]
 ignore_missing_imports = true
 
