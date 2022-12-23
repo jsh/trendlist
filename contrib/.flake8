@@ -1,2 +1,9 @@
 [flake8]
-ignore = DAR101, DAR201, E501
+per-file-ignores =
+    # TODO: make flake happy for these files
+    count_trends.py: DAR101, DAR201, E501
+    mean_forward_trends.py: DAR101, DAR201, E501
+    mean_opposite_trends.py: DAR101, DAR201, E501
+
+
+

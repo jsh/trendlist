@@ -11,7 +11,8 @@ script:
 - coverage run --source=src -m pytest tests/
 - coveralls
 - mutmut run --simple-output
-- flake8 contrib src tests
+- flake8 src tests
+- (cd contrib; flake8 .)
 - bandit -c pyproject.toml -r -q .
 - mypy -p contrib
 - mypy -p src
