@@ -89,7 +89,7 @@ def uphills(trendlists):
     return _uphills
 
 
-def number_of_trends(length, mode, base=2, reverse=False):
+def number_of_trends(length, mode, base=2, reverse=False, weird=1):
     """Report trends in sequences of given length.
 
     Three modes: 'stirling', 'random', and 'powers'.
@@ -100,6 +100,9 @@ def number_of_trends(length, mode, base=2, reverse=False):
         seq = rands(length)
     elif mode == "powers":
         seq = pows(length, base)
+    elif mode == "weird":
+        seq = pows(length, base)
+        seq[length-1] *= weird 
     else:
         return f"unknown mode '{mode}'"
     # generate the trendlists
