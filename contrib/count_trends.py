@@ -102,7 +102,7 @@ def number_of_trends(length, mode, base=2, reverse=False, weird=1):
         seq = pows(length, base)
     elif mode == "weird":
         seq = pows(length, base)
-        seq[length-1] *= weird 
+        seq[length-1] *= weird
     else:
         return f"unknown mode '{mode}'"
     # generate the trendlists
