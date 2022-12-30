@@ -5,6 +5,7 @@ per-file-ignores =
     mean_forward_trends.py: DAR101, DAR201, E501
     mean_opposite_trends.py: DAR101, DAR201, E501
     uphills.py: DAR101, DAR201
+    more_uphill_trends.py: DAR101, DAR201
 
 
 
