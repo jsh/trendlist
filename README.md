@@ -21,21 +21,28 @@ It builds the *trendlist* package, which includes the submodule *trendlist.simpl
 
 ### Background: Sorted Sequences Are Well-Defined and Rare.
 
-If you sort a set of numbers, by default every element is greater than its neighbor to the left.
-A math geek would call such a sequence *monotonically increasing*.
+If you sort a set of numbers, by default every element is greater than or equal to its neighbor to the left.
+A math geek would call such a sequence *monotonic*.
 
-Monotonic is a bigger category, and can mean any of these:
+Monotonic is a big category, and can mean any of these:
 
-* monotonically increasing: 1, 2, 4, 8, 16, ...
-* monotonically decreasing: -1, -3, -9, -27, ...
-* monotonically non-decreasing: 1, 1, 2, 3, 5, 8, ...
-* monotonically non-increasing: 1, 1, 1/2, 1/3, 1/5, 1/8, ...
+* strictly increasing: 1, 2, 4, 8, 16, ...
+* strictly decreasing: -1, -3, -9, -27, ...
+* monotonically increasing: 1, 1, 2, 3, 5, 8, ...
+* monotonically decreasing: 1, 1, 1/2, 1/3, 1/5, 1/8, ...
 
 For simplicity, let's focus on the first of these four,
 understanding that we can go back and reason analogously about the other three types.
 
-In general, we'll be thinking about sequences without repeats, and just use "sorted" and "monotonically increasing"
-interchangeably. (We'll return to avoiding repeats in a minute. Bear with us.)
+We'll stick to working with sequences without repeats,
+so we can just use "sorted" and "monotonic" to mean
+"sorted increasing with no repeats" and "strictly increasing,"
+and save typing.
+
+(We'll return to avoiding repeats in a minute. Bear with us.)
+
+When we say "sequence," we mean "finite sequence." This is software,
+not calculus.
 
 Few real-world sequences are sorted, but lots get generally bigger from one end to the other.
 
@@ -58,7 +65,8 @@ Trends are a superset of sorted sequences:
 that is, a sorted sequence is a trend
 but a trend doesn't have to be sorted.
 
-Though not everything is a trend, trends are far more common than sorted sequences.
+Though not everything is a trend,
+trends are far more common than sorted sequences.
 
 For example, `1, 2, 4, 8, 16` is both sorted and a trend,
 but `2, 1, 4, 8, 16` is not sorted, yet it is a trend.
@@ -149,15 +157,15 @@ You can use these abstractions turn a sequence of a million random floats into a
 
 ### Trends Have Cool Properties
 
-It's pretty obvious that any sequence breaks cleanly and uniquely into maximum-length, monotonically increasing subsequences. For example,
+It's pretty obvious that any sequence without repeats breaks cleanly and uniquely into maximum-length, sorted subsequences. For example,
 
 * `[3, 1, 4, 1, 5, 9]`  -> `[[3], [1 4], [1 5 9]]`
 
 * `[2, 7, 1, 8, 2, 8, 1, 8, 2, 8, 4, 5, 9, 0, 4, 5]` -> `[[2, 7], [1, 8], [2, 8], [1, 8], [2, 8], [4, 5, 9], [0, 4, 5]]`
 
-We're letting single numbers be monotonic sequences, where needed. Here again, we won't deal with adjacent, repeating numbers, like `[1, 1, 2, 3, 5, 8, 13]`
+We're calling single numbers sorted sequences, where needed. Here again, we won't deal with adjacent, repeating numbers, like `[1, 1, 2, 3, 5, 8, 13]`
 
-The monotonic subsequences are called "ascents," and were studied in depth by Euler who probably called them something else because he was German and wrote in Latin.
+These subsequences are called "ascents," and were studied in depth by Euler who probably called them something else because he was German and wrote in Latin.
 
 Notice a couple of things:
 
@@ -173,7 +181,8 @@ Pleasantly, every sequence also breaks cleanly and uniquely into maximum-length 
 
 Spoiler alert:
 
-- The means of the trends decrease monotonically. Every trend's mean is greater than the mean of the trend to its right. They're sorted in reverse order.
+- The means of the trends drop from left to right.
+They're sorted in reverse order.
 
 - Out of the `N!` permutations of a set of `N` numbers, `(N-1)!` are single trends.
 In fact, every sequence has exactly one circular permutation that's a single, increasing trend.
